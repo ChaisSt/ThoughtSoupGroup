@@ -463,11 +463,15 @@
                          FontSize="30" 
                          Foreground="#FF43B7D1" 
                          Name="FriendsHeader" 
-                         Style="{DynamicResource TabItemStyle2}" FontFamily="/ThoughtSoup;component/Fonts/#After Night">
-                    <Label Content="Some Friend Chats" 
-                           Foreground="White" 
-                           FontFamily="./Fonts/Bully" 
-                           FontSize="20"/>
+                         Style="{DynamicResource TabItemStyle2}" FontFamily="/ThoughtSoup;component/Fonts/#After Night" Height="58" Margin="-2,0,-0.4,-2.8" VerticalAlignment="Top">
+                    <ListBox x:Name="FriendsList" 
+                              Background="#200457" 
+                              
+                              HorizontalAlignment="Left" 
+                              Height="601" 
+                              VerticalAlignment="Top" 
+                              Width="244" 
+                              Margin="0,10,0,0"/>
                 </TabItem>
                 <TabItem Header="Rooms" 
                          FontSize="30" 
@@ -510,13 +514,13 @@
                             <RowDefinition Height="40"/>
                         </Grid.RowDefinitions>
                         <!--Background Soup Logo-->
-                        <Image Source="Resources/TsLogo2.png" 
+                        <Image Source="Resources/SoupLogo3.png" 
                                Grid.Column="2" Grid.ColumnSpan="2"
                                Grid.Row="1" Grid.RowSpan="2" />
                         <Border Grid.Column="0" Grid.ColumnSpan="6"
                                    Grid.Row="0" Grid.RowSpan="4" Margin="5" 
                                 CornerRadius="10" Background="#66000012">
-                            <TextBlock x:Name="MainOutput" 
+                            <TextBlock x:Name="ChatWIndow" 
                                    TextWrapping="Wrap"  Margin="5"
                                    
                                    Grid.Column="0" Grid.ColumnSpan="6"
@@ -594,12 +598,12 @@
                         </TextBox>
 
                         <!--Send Message Button-->
-                        <Button Background="#9DF05D" 
+                        <Button x:Name="SendButton" Background="#9DF05D" 
                                 BorderBrush="Transparent"
                                 Margin="10,4,12,8"
                                 Padding="2" 
                                 Grid.Row="4" 
-                                Click="Button_Click"
+                                Click="SendButton_Click"
                                 Grid.Column="6">
                             <Button.Style>
                                 <Style TargetType="{x:Type Button}">
