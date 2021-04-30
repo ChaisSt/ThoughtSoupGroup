@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using Microsoft.AspNetCore.SignalR.Client;
 using ThoughtSoup.Domain.Models;
@@ -52,11 +54,11 @@ namespace ThoughtSoup
 
       private async void SendButton_Click(object sender, RoutedEventArgs e)
       {
-         ChatMessage message = new ChatMessage {Message = MainTextBox.Text, ConnectionID = _connectionID};
+         ChatMessage message = new ChatMessage {Message = MessageInputBox.Text, ConnectionID = _connectionID};
 
          await connection.InvokeAsync("SendMessage", message);
 
-         MainTextBox.Text = string.Empty;
+         MessageInputBox.Text = string.Empty;
       }
 
       private async void InitializeSignalR()
@@ -120,6 +122,19 @@ namespace ThoughtSoup
          }
       }
 
-       
-   }
+        private void MessageInputBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if(e.KeyboardDevice.Modifiers == ModifierKeys.Control && e.Key == Key.Enter)
+            {
+                int caret = MessageInputBox.CaretIndex;
+                MessageInputBox.Text = MessageInputBox.Text.Insert(caret, Environment.NewLine);
+                MessageInputBox.CaretIndex = caret + Environment.NewLine.Length;
+                return;
+            }
+            if(e.Key == Key.Enter)
+            {
+                SendButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            }
+        }
+    }
 }

@@ -526,11 +526,11 @@
                         </Border>
             </ScrollViewer>
             <!--Input Text Area-->
-                        <TextBox x:Name="MainTextBox" FontSize="18" 
+                        <TextBox x:Name="MessageInputBox" FontSize="18" 
                                  Padding="5"  
                                  Grid.Row="4" 
                                  Grid.Column="0" Grid.ColumnSpan="6" 
-                                 Margin="7,0,7,5">
+                                 Margin="7,0,7,5" KeyDown="MessageInputBox_KeyDown">
                             <TextBox.Style>
                                 <Style TargetType="TextBox">
                                     <Setter Property="Template">
