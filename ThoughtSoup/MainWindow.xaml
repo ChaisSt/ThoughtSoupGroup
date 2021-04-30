@@ -520,14 +520,16 @@
                         <Border Grid.Column="0" Grid.ColumnSpan="6"
                                    Grid.Row="0" Grid.RowSpan="4" Margin="5" 
                                 CornerRadius="10" Background="#66000012">
-                            <TextBlock x:Name="ChatWIndow" 
+                            <!--<TextBlock x:Name="ChatWIndow" 
                                    TextWrapping="Wrap"  Margin="5"
                                    
                                    Grid.Column="0" Grid.ColumnSpan="6"
                                    Grid.Row="0" Grid.RowSpan="4" Foreground="White">
 
-                            </TextBlock>
-                        </Border>
+                            </TextBlock>-->
+
+              <StackPanel Name="ChatWindow" Grid.Column="0" Grid.ColumnSpan="6" Grid.Row="0" Grid.RowSpan="4" Orientation="Vertical" />
+            </Border>
                         <!--Input Text Area-->
                         <TextBox x:Name="MainTextBox" FontSize="18" 
                                  Padding="5"  

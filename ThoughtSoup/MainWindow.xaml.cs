@@ -15,6 +15,8 @@ namespace ThoughtSoup
    {
       private HubConnection connection;
 
+        private string _connectionID; 
+
       public MainWindow()
       {
          InitializeComponent();
@@ -50,7 +52,7 @@ namespace ThoughtSoup
 
       private async void SendButton_Click(object sender, RoutedEventArgs e)
       {
-         ChatMessage message = new ChatMessage {Message = MainTextBox.Text};
+         ChatMessage message = new ChatMessage {Message = MainTextBox.Text, ConnectionID = _connectionID};
 
          await connection.InvokeAsync("SendMessage", message);
 
@@ -78,20 +80,38 @@ namespace ThoughtSoup
 
             connection.On(
                "ReceiveMessage",
-               (ChatMessage message) => Dispatcher.Invoke(() => { ChatWIndow.Text += $"{message.Message}\n"; })
+               //(ChatMessage message) => Dispatcher.Invoke(() => { ChatWIndow.Text += $"{message.Message}\n"; })
+               (ChatMessage message) => Dispatcher.Invoke(() => {
+                   ChatBubble bubble;
+
+                   if (message.ConnectionID == _connectionID)
+                   {
+                       bubble = new ChatBubble(new SentMessageOptions(), message);
+                   }
+                   else
+                   {
+                       bubble = new ChatBubble(new ReceivedMessageOptions(), message);
+                   }
+
+                   RecievedMessage messageBubble = new RecievedMessage(bubble);
+                   
+                   ChatWindow.Children.Add(messageBubble);
+               })
             );
 
             try
             {
                await connection.StartAsync();
+               _connectionID = connection.ConnectionId;
                await connection.InvokeAsync(
                   "SendMessage",
-                  new ChatMessage {Message = $"User with connectionID of {connection.ConnectionId} has joined.\n"}
+                  new ChatMessage {Message = $"User with connectionID of {_connectionID} has joined.\n", ConnectionID = _connectionID}
                );
             }
             catch (Exception ex)
             {
-               ChatWIndow.Text += ex.Message;
+                    RecievedMessage errorMessage = new RecievedMessage(new ChatBubble(null, new ChatMessage { Message = ex.Message }));
+                    ChatWindow.Children.Add(errorMessage);
             }
          }
          catch (Exception ex)
@@ -99,5 +119,7 @@ namespace ThoughtSoup
             throw ex;
          }
       }
+
+       
    }
 }

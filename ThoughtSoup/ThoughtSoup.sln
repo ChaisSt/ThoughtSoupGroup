@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThoughtSoup.WPF", "ThoughtSoup.WPF.csproj", "{9F80AD35-8AF5-462D-8B74-DE6DF91D6284}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThoughtSoup.SignalR", "..\ThoughtSoup.SignalR\ThoughtSoup.SignalR.csproj", "{F1081655-044F-4DA2-978C-5435D15624BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThoughtSoup.SignalR", "..\ThoughtSoup.SignalR\ThoughtSoup.SignalR.csproj", "{F1081655-044F-4DA2-978C-5435D15624BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThoughtSoup.Domain", "..\ThoughtSoup.Domain\ThoughtSoup.Domain.csproj", "{656149AA-9985-418C-8691-589E6A571111}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThoughtSoup.Domain", "..\ThoughtSoup.Domain\ThoughtSoup.Domain.csproj", "{656149AA-9985-418C-8691-589E6A571111}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
