@@ -181,10 +181,39 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="FriendsAndRoomTabs.xaml.cs">
+      <DependentUpon>FriendsAndRoomTabs.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MessageBubble.xaml.cs">
       <DependentUpon>MessageBubble.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ProfileHeader.xaml.cs">
+      <DependentUpon>ProfileHeader.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\SignalRChatService.cs" />
+    <Compile Include="WindowButtons.xaml.cs">
+      <DependentUpon>WindowButtons.xaml</DependentUpon>
+    </Compile>
+    <Page Include="ProfileHeader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\TabStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\WindowStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\WindowButtonStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FriendsAndRoomTabs.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -198,6 +227,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MessageBubble.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowButtons.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -285,5 +318,6 @@
       <Name>ThoughtSoup.Domain</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

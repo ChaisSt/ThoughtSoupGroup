@@ -4,6 +4,12 @@
              xmlns:local="clr-namespace:ThoughtSoup"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
-    </Application.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="Styles/TabStyles.xaml" />
+				<ResourceDictionary Source="Styles/WindowStyles.xaml" />
+				<ResourceDictionary Source="Styles/WindowButtonStyles.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</Application.Resources>
 </Application>

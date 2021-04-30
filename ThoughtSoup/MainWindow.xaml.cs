@@ -24,32 +24,6 @@ namespace ThoughtSoup
          InitializeComponent();
 
          InitializeSignalR();
-
-         WindowImg.Source = new BitmapImage(new Uri(@"/Resources/MinWindow.png", UriKind.Relative));
-      }
-
-      private void MinimizeButton_Click(object sender, RoutedEventArgs e)
-      {
-         WindowState = WindowState.Minimized;
-      }
-
-      private void CloseButton_Click(object sender, RoutedEventArgs e)
-      {
-         Close();
-      }
-
-      private void WindowButton_Click(object sender, RoutedEventArgs e)
-      {
-         if (WindowState != WindowState.Maximized)
-         {
-            WindowState = WindowState.Maximized;
-            WindowImg.Source = new BitmapImage(new Uri(@"/Resources/MinWindow.png", UriKind.Relative));
-         }
-         else
-         {
-            WindowState = WindowState.Normal;
-            WindowImg.Source = new BitmapImage(new Uri(@"/Resources/MaxWindow.png", UriKind.Relative));
-         }
       }
 
       private async void SendButton_Click(object sender, RoutedEventArgs e)
@@ -82,7 +56,6 @@ namespace ThoughtSoup
 
             connection.On(
                "ReceiveMessage",
-               //(ChatMessage message) => Dispatcher.Invoke(() => { ChatWIndow.Text += $"{message.Message}\n"; })
                (ChatMessage message) => Dispatcher.Invoke(() => {
                    ChatBubble bubble;
 
@@ -136,5 +109,5 @@ namespace ThoughtSoup
                 SendButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             }
         }
-    }
+	}
 }

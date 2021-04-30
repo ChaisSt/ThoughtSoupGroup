@@ -24,6 +24,10 @@ namespace ThoughtSoup
 
         }
 
+        public MessageBubble(){
+            InitializeComponent();
+		}
+
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register(nameof(MessageText), typeof(string), typeof(MessageBubble));
 
         public static readonly DependencyProperty ColorProperty = DependencyProperty.Register(nameof(BackgroundColor), typeof(string), typeof(MessageBubble));

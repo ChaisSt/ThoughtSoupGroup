@@ -12,246 +12,8 @@
         Background="Transparent"
         ResizeMode="CanResizeWithGrip"
         AllowsTransparency="True" Foreground="{x:Null}" 
-        Template="{DynamicResource WindowTemplateKey}">
-	<Window.Resources>
+        Template="{StaticResource WindowTemplateKey}">
 
-		<!--Room Tab Styles-->
-		<Style x:Key="TabItemStyle1" 
-               TargetType="{x:Type TabItem}">
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="{x:Type TabItem}">
-						<Border x:Name="Border" 
-                                CornerRadius="8,8,0,0" 
-                                Margin="0,0,-3,0">
-							<ContentPresenter x:Name="ContentSite"
-                                              ContentSource="Header"
-                                              Margin="13,5"/>
-						</Border>
-						<ControlTemplate.Triggers>
-							<Trigger Property="IsSelected" Value="True">
-								<Setter Property="Foreground" Value="#43C1D1"/>
-								<Setter TargetName="Border" Property="Background" Value="#290E61"/>
-								<Setter TargetName="Border" Property="BorderThickness" Value="2,2,2,0"/>
-								<Setter TargetName="Border" Property="BorderBrush" Value="#9DF05D"/>
-								<Setter Property="Margin" Value="0,0,0,-2.5"/>
-							</Trigger>
-							<Trigger Property="IsSelected" Value="False">
-								<Setter TargetName="Border" Property="Background" Value="#19014A" />
-								<Setter TargetName="Border" Property="BorderThickness" Value="0,2,2,0"/>
-								<Setter TargetName="Border" Property="BorderBrush" Value="#F97362"/>
-								<Setter Property="Margin" Value="0"/>
-							</Trigger>
-						</ControlTemplate.Triggers>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>
-
-		<!--Friends Tab Styles-->
-		<Style x:Key="TabItemStyle2" TargetType="{x:Type TabItem}">
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="{x:Type TabItem}">
-						<Border x:Name="Border" CornerRadius="8,8,0,0">
-							<ContentPresenter x:Name="ContentSite"
-                                ContentSource="Header"
-                                Margin="12,5"/>
-						</Border>
-
-						<ControlTemplate.Triggers>
-							<Trigger Property="IsSelected" Value="True">
-								<Setter TargetName="Border" Property="Background" Value="#290E61" />
-								<Setter TargetName="Border" Property="BorderThickness" Value="2,2,2,0"/>
-								<Setter TargetName="Border" Property="BorderBrush" Value="#9DF05D"/>
-								<Setter Property="Margin" Value="-2,0,0,-2.5"/>
-							</Trigger>
-							<Trigger Property="IsSelected" Value="False">
-								<Setter TargetName="Border" Property="Background" Value="#19014A" />
-								<Setter TargetName="Border" Property="BorderThickness" Value="2,2,0,0"/>
-								<Setter TargetName="Border" Property="BorderBrush" Value="#F97362"/>
-								<Setter Property="Margin" Value="-2,0"/>
-							</Trigger>
-						</ControlTemplate.Triggers>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>
-
-		<!--Chatroom Tab Styles-->
-		<Style x:Key="TabItemStyle3" TargetType="{x:Type TabItem}">
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="{x:Type TabItem}">
-						<Border x:Name="Border" 
-                                BorderThickness="2,2,2,0" 
-                                BorderBrush="#FD5E49" 
-                                CornerRadius="8,8,0,0">
-							<ContentPresenter x:Name="ContentSite"
-                                              ContentSource="Header"
-                                              Margin="20,5"/>
-						</Border>
-
-						<ControlTemplate.Triggers>
-							<Trigger Property="IsSelected" Value="True">
-								<Setter Property="Foreground" Value="#43C1D1"/>
-								<Setter TargetName="Border" Property="Background" Value="#200457" />
-								<Setter Property="Margin" Value="-2,0,0,-2.5"/>
-							</Trigger>
-							<Trigger Property="IsSelected" Value="False">
-								<Setter TargetName="Border" Property="Background" Value="#19014A" />
-								<Setter TargetName="Border" Property="BorderThickness" Value="1"/>
-								<Setter Property="Foreground" Value="#43C1D1"/>
-								<Setter Property="Margin" Value="-2,0"/>
-							</Trigger>
-						</ControlTemplate.Triggers>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>
-
-		<!--Tab Area Body Styles-->
-		<SolidColorBrush x:Key="TabItem.Selected.Background" Color="#FFFFFF"/>
-		<SolidColorBrush x:Key="TabItem.Selected.Border" Color="Transparent"/>
-		<Style x:Key="TabControlStyle1" TargetType="{x:Type TabControl}">
-			<Setter Property="Padding" Value="2"/>
-			<Setter Property="HorizontalContentAlignment" Value="Center"/>
-			<Setter Property="VerticalContentAlignment" Value="Center"/>
-			<Setter Property="Background" Value="{StaticResource TabItem.Selected.Background}"/>
-			<Setter Property="BorderBrush" Value="{StaticResource TabItem.Selected.Border}"/>
-			<Setter Property="BorderThickness" Value="2"/>
-			<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="{x:Type TabControl}">
-						<Grid x:Name="templateRoot" ClipToBounds="true" SnapsToDevicePixels="true" KeyboardNavigation.TabNavigation="Local">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition x:Name="ColumnDefinition0"/>
-								<ColumnDefinition x:Name="ColumnDefinition1" Width="0"/>
-							</Grid.ColumnDefinitions>
-							<Grid.RowDefinitions>
-								<RowDefinition x:Name="RowDefinition0" Height="Auto"/>
-								<RowDefinition x:Name="RowDefinition1" Height="*"/>
-							</Grid.RowDefinitions>
-							<TabPanel x:Name="headerPanel" 
-                                      Background="Transparent" 
-                                      Grid.Column="0" 
-                                      IsItemsHost="true" 
-                                      Margin="2,2,2,0" 
-                                      Grid.Row="0" 
-                                      KeyboardNavigation.TabIndex="1" 
-                                      Panel.ZIndex="1"/>
-							<Border x:Name="contentPanel" 
-                                    CornerRadius="0,0,15,15" 
-                                    BorderBrush="{TemplateBinding BorderBrush}" 
-                                    BorderThickness="{TemplateBinding BorderThickness}" 
-                                    Background="{TemplateBinding Background}" 
-                                    Grid.Column="0" 
-                                    KeyboardNavigation.DirectionalNavigation="Contained" 
-                                    Grid.Row="1" 
-                                    KeyboardNavigation.TabIndex="2" 
-                                    KeyboardNavigation.TabNavigation="Local">
-								<ContentPresenter x:Name="PART_SelectedContentHost" 
-                                                  ContentSource="SelectedContent" 
-                                                  Margin="{TemplateBinding Padding}" 
-                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-							</Border>
-						</Grid>
-						<ControlTemplate.Triggers>
-							<Trigger Property="TabStripPlacement" Value="Bottom">
-								<Setter Property="Grid.Row" TargetName="headerPanel" Value="1"/>
-								<Setter Property="Grid.Row" TargetName="contentPanel" Value="0"/>
-								<Setter Property="Height" TargetName="RowDefinition0" Value="*"/>
-								<Setter Property="Height" TargetName="RowDefinition1" Value="Auto"/>
-								<Setter Property="Margin" TargetName="headerPanel" Value="2,0,2,2"/>
-							</Trigger>
-							<Trigger Property="TabStripPlacement" Value="Left">
-								<Setter Property="Grid.Row" TargetName="headerPanel" Value="0"/>
-								<Setter Property="Grid.Row" TargetName="contentPanel" Value="0"/>
-								<Setter Property="Grid.Column" TargetName="headerPanel" Value="0"/>
-								<Setter Property="Grid.Column" TargetName="contentPanel" Value="1"/>
-								<Setter Property="Width" TargetName="ColumnDefinition0" Value="Auto"/>
-								<Setter Property="Width" TargetName="ColumnDefinition1" Value="*"/>
-								<Setter Property="Height" TargetName="RowDefinition0" Value="*"/>
-								<Setter Property="Height" TargetName="RowDefinition1" Value="0"/>
-								<Setter Property="Margin" TargetName="headerPanel" Value="2,2,0,2"/>
-							</Trigger>
-							<Trigger Property="TabStripPlacement" Value="Right">
-								<Setter Property="Grid.Row" TargetName="headerPanel" Value="0"/>
-								<Setter Property="Grid.Row" TargetName="contentPanel" Value="0"/>
-								<Setter Property="Grid.Column" TargetName="headerPanel" Value="1"/>
-								<Setter Property="Grid.Column" TargetName="contentPanel" Value="0"/>
-								<Setter Property="Width" TargetName="ColumnDefinition0" Value="*"/>
-								<Setter Property="Width" TargetName="ColumnDefinition1" Value="Auto"/>
-								<Setter Property="Height" TargetName="RowDefinition0" Value="*"/>
-								<Setter Property="Height" TargetName="RowDefinition1" Value="0"/>
-								<Setter Property="Margin" TargetName="headerPanel" Value="0,2,2,2"/>
-							</Trigger>
-							<Trigger Property="IsEnabled" Value="false">
-								<Setter Property="TextElement.Foreground" TargetName="templateRoot" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
-							</Trigger>
-						</ControlTemplate.Triggers>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>
-
-		<ControlTemplate x:Key="WindowTemplateKey" TargetType="{x:Type Window}">
-			<Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-				<Grid>
-					<AdornerDecorator>
-						<ContentPresenter/>
-					</AdornerDecorator>
-					<ResizeGrip Visibility="Collapsed" HorizontalAlignment="Right" x:Name="WindowResizeGrip" Style="{DynamicResource ResizeGripStyle1}" VerticalAlignment="Bottom" IsTabStop="false"/>
-				</Grid>
-			</Border>
-			<ControlTemplate.Triggers>
-				<MultiTrigger>
-					<MultiTrigger.Conditions>
-						<Condition Property="ResizeMode" Value="CanResizeWithGrip"/>
-						<Condition Property="WindowState" Value="Normal"/>
-					</MultiTrigger.Conditions>
-					<Setter Property="Visibility" TargetName="WindowResizeGrip" Value="Visible"/>
-				</MultiTrigger>
-			</ControlTemplate.Triggers>
-		</ControlTemplate>
-		<Style x:Key="MacWindowStyle" TargetType="{x:Type Window}">
-			<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
-			<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="{x:Type Window}">
-						<Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-							<AdornerDecorator>
-								<ContentPresenter/>
-							</AdornerDecorator>
-						</Border>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-			<Style.Triggers>
-				<Trigger Property="ResizeMode" Value="CanResizeWithGrip">
-					<Setter Property="Template" Value="{StaticResource WindowTemplateKey}"/>
-				</Trigger>
-			</Style.Triggers>
-		</Style>
-		<SolidColorBrush x:Key="ResizeGripperForeground" Color="#04D9FF"/>
-		<Style x:Key="ResizeGripStyle1" TargetType="{x:Type ResizeGrip}">
-			<Setter Property="MinWidth" Value="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}"/>
-			<Setter Property="MinHeight" Value="{DynamicResource {x:Static SystemParameters.HorizontalScrollBarHeightKey}}"/>
-			<Setter Property="Background" Value="Transparent"/>
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="{x:Type ResizeGrip}">
-						<Grid SnapsToDevicePixels="True" Background="{TemplateBinding Background}">
-							<Path Fill="{StaticResource ResizeGripperForeground}" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Data="M 8,0 L 10,0 L 10,2 L 8,2 Z M 4,4 L 6,4 L 6,6 L 4,6 Z M 8,4 L 10,4 L 10,6 L 8,6 Z M 0,8 L 2,8 L 2,10 L 0,10 Z M 4,8 L 6,8 L 6,10 L 4,10 Z M 8,8 L 10,8 L 10,10 L 8,10 Z"/>
-						</Grid>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>
-
-	</Window.Resources>
 
 	<Border Background="#19014A" CornerRadius="15" Padding="5" AllowDrop="True">
 		<Grid Background="#19014A">
@@ -271,126 +33,8 @@
 			</Grid.RowDefinitions>
 
 			<!--Window Buttons-->
-			<StackPanel Grid.Column="4" 
-                        Grid.Row="0" 
-                        Margin="8" 
-                        Orientation="Horizontal" 
-                        Background="#19014A">
-				<!--Minimize-->
-				<Button Background="Transparent" 
-                        BorderBrush="Transparent" 
-                        Click="MinimizeButton_Click"
-                        Width="30" Height="30">
-					<Button.Style>
-						<Style TargetType="{x:Type Button}">
-							<Setter Property="Template">
-								<Setter.Value>
-									<ControlTemplate TargetType="{x:Type Button}">
-										<Border x:Name="ButtonBorder" 
-                                                Background="{TemplateBinding Background}" 
-                                                BorderBrush="White" 
-                                                BorderThickness="1" 
-                                                CornerRadius="30">
-											<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-										</Border>
-									</ControlTemplate>
-								</Setter.Value>
-							</Setter>
-							<Style.Triggers>
-								<Trigger Property="IsMouseOver" Value="True">
-									<Setter Property="Effect">
-										<Setter.Value>
-											<DropShadowEffect ShadowDepth="0" 
-                                                                      Color="#04D9FF" 
-                                                                      Opacity="10" 
-                                                                      BlurRadius="30"/>
-										</Setter.Value>
-									</Setter>
-									<Setter Property="Foreground" Value="White"/>
-								</Trigger>
-							</Style.Triggers>
-						</Style>
-					</Button.Style>
-					<Image x:Name="btnMinimize" 
-                           Source="/Resources/Minimize.png" 
-                           Margin="-3"/>
-				</Button>
-				<!--Window-->
-				<Button Background="Transparent"
-                        BorderBrush="Transparent"
-                        Click="WindowButton_Click"
-                        Width="30" Height="30" Margin="10,0">
-					<Button.Style>
-						<Style TargetType="{x:Type Button}">
-							<Setter Property="Template">
-								<Setter.Value>
-									<ControlTemplate TargetType="{x:Type Button}">
-										<Border x:Name="ButtonBorder" 
-                                                Background="{TemplateBinding Background}" 
-                                                BorderBrush="White" 
-                                                BorderThickness="1" 
-                                                CornerRadius="30">
-											<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-										</Border>
-									</ControlTemplate>
-								</Setter.Value>
-							</Setter>
-							<Style.Triggers>
-								<Trigger Property="IsMouseOver" Value="True">
-									<Setter Property="Effect">
-										<Setter.Value>
-											<DropShadowEffect ShadowDepth="0" 
-                                                                      Color="Lime" 
-                                                                      Opacity="10" 
-                                                                      BlurRadius="30"/>
-										</Setter.Value>
-									</Setter>
-									<Setter Property="Foreground" Value="White"/>
-								</Trigger>
-							</Style.Triggers>
-						</Style>
-					</Button.Style>
-					<Image x:Name="WindowImg" Margin="-3"/>
-				</Button>
-				<!--Close-->
-				<Button Background="Transparent"
-                        BorderBrush="Transparent"
-                        Width="30"
-                        Click="CloseButton_Click"
-                        Height="30">
-					<Button.Style>
-						<Style TargetType="{x:Type Button}">
-							<Setter Property="Template">
-								<Setter.Value>
-									<ControlTemplate TargetType="{x:Type Button}">
-										<Border x:Name="ButtonBorder" 
-                                                Background="{TemplateBinding Background}" 
-                                                BorderBrush="White" 
-                                                BorderThickness="1" 
-                                                CornerRadius="30">
-											<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-										</Border>
-									</ControlTemplate>
-								</Setter.Value>
-							</Setter>
-							<Style.Triggers>
-								<Trigger Property="IsMouseOver" Value="True">
-									<Setter Property="Effect">
-										<Setter.Value>
-											<DropShadowEffect ShadowDepth="0" 
-                                                                      Color="Red" 
-                                                                      Opacity="10" 
-                                                                      BlurRadius="25"/>
-										</Setter.Value>
-									</Setter>
-									<Setter Property="Foreground" Value="White"/>
-								</Trigger>
-							</Style.Triggers>
-						</Style>
-					</Button.Style>
-					<Image Source="/Resources/Close.png" Margin="-3"/>
-				</Button>
-			</StackPanel>
+			<local:WindowButtons Grid.Column="4" Grid.Row="0" />
+			
 
 			<!--Thought Soup title-->
 			<Image Source="Resources/ThoughtSoupWords.png" 
@@ -403,7 +47,10 @@
                    Grid.RowSpan="2"/>
 
 			<!--Username and photo -->
-			<StackPanel Orientation="Horizontal" 
+			<local:ProfileHeader Grid.Row="1" 
+                        Grid.Column="3" 
+                        Grid.ColumnSpan="2"/>
+			<!--<StackPanel Orientation="Horizontal" 
                         HorizontalAlignment="Right" 
                         Grid.Row="1" 
                         Grid.Column="3" 
@@ -450,78 +97,9 @@
 						<ImageBrush ImageSource="Resources/neonCool1.jpg"/>
 					</Ellipse.Fill>
 				</Ellipse>
-			</StackPanel>
+			</StackPanel>-->
 
-			<!--Friends & Rooms-->
-			<TabControl Background="#290E61" 
-                        BorderBrush="#9DF05D" 
-                        Margin="20,0,10,20" 
-                        Grid.Column="0" 
-                        Grid.Row="2" Grid.RowSpan="3" 
-                        Name="FriendRoomTabGroup"
-                        Style="{DynamicResource TabControlStyle1}">
-
-				<TabItem Header="Friends" 
-						 FontSize="30" 
-                         Foreground="#FF43B7D1" 
-                         Name="FriendsHeader" 
-                         Style="{DynamicResource TabItemStyle2}" FontFamily="/ThoughtSoup;component/Fonts/#After Night" Height="58" Margin="-2,0,-0.4,-2.8" VerticalAlignment="Top">
-					<Grid Name="FriendsGrid" Margin="5">
-						<ListBox x:Name="FriendsList" 
-                              Background="#200457" 
-                              BorderBrush="Transparent"
-                              HorizontalAlignment="Left" 
-                              VerticalAlignment="Top" 
-							  Height="{Binding ElementName=FriendsGrid, Path=ActualHeight}"
-                              Width="{Binding ElementName=FriendsGrid, Path=ActualWidth}" 
-                              RenderTransformOrigin="0.5,0.5">
-							<ListBox.RenderTransform>
-								<TransformGroup>
-									<ScaleTransform/>
-									<SkewTransform AngleX="-0.166"/>
-									<RotateTransform/>
-									<TranslateTransform X="-0.997"/>
-								</TransformGroup>
-							</ListBox.RenderTransform>
-							<ListBoxItem Width="{Binding ElementName=RoomsList, Path=ActualWidth}" Padding="0">
-								<Viewbox StretchDirection="Both" Stretch="Uniform" Margin="0">
-									<TextBlock Margin="0,0,10,0" Padding="3" Foreground="Aqua" Text="Christopher Chase" FontStretch="Expanded"/>
-								</Viewbox>
-							</ListBoxItem>
-						</ListBox>
-					</Grid>
-				</TabItem>
-				<TabItem Header="Rooms" 
-                         FontSize="30" 
-                         Foreground="#43C1D1" 
-                         Name="RoomsHeader" 
-                         Style="{DynamicResource TabItemStyle1}" FontFamily="/ThoughtSoup;component/Fonts/#Neon Lights">
-					<Grid Name="RoomsGrid" Margin="5">
-						<ListBox x:Name="RoomsList" 
-                              Background="#200457" 
-                              BorderBrush="Transparent"
-                              HorizontalAlignment="Left" 
-                              VerticalAlignment="Top" 
-							  Height="{Binding ElementName=RoomsGrid, Path=ActualHeight}"
-                              Width="{Binding ElementName=RoomsGrid, Path=ActualWidth}" 
-                              RenderTransformOrigin="0.5,0.5">
-							<ListBox.RenderTransform>
-								<TransformGroup>
-									<ScaleTransform/>
-									<SkewTransform AngleX="-0.166"/>
-									<RotateTransform/>
-									<TranslateTransform X="-0.997"/>
-								</TransformGroup>
-							</ListBox.RenderTransform>
-							<ListBoxItem Width="{Binding ElementName=RoomsList, Path=ActualWidth}" Padding="0">
-								<Viewbox StretchDirection="Both" Stretch="Uniform" Margin="0">
-									<TextBlock Foreground="Aqua" Text="The Cool Room" FontStretch="Expanded"/>
-								</Viewbox>
-							</ListBoxItem>
-						</ListBox>
-					</Grid>
-				</TabItem>
-			</TabControl>
+			<local:FriendsAndRoomTabs Grid.Column="0" Grid.Row="2" Grid.RowSpan="3" />
 
 			<!--Chatroom Tabs-->
 			<TabControl Background="#200457" 
@@ -529,12 +107,14 @@
                         BorderBrush="#FD5E49"  
                         Grid.Column="1" Grid.ColumnSpan="4"
                         Grid.Row="2" Grid.RowSpan="3"  
-                        Style="{DynamicResource TabControlStyle1}">
+						Style="{StaticResource GeneralTabControlStyles}"
+						>
+				<!--Style="{DynamicResource TabControlStyle1}">-->
 				<TabItem Header="TheSoupChat" 
                          FontSize="30" 
                          Background="#290E61" 
                          IsSelected="True" 
-                         Style="{DynamicResource TabItemStyle3}" 
+                         Style="{StaticResource ChatTabStyles}" 
                          FontFamily="/ThoughtSoup;component/Fonts/#NEON ABSOLUTE SANS 1">
 					<Grid>
 						<Grid.ColumnDefinitions>
@@ -563,7 +143,7 @@
 							<Border Grid.Column="0" Grid.ColumnSpan="6"
                                     Grid.Row="0" Grid.RowSpan="4" Margin="5" 
                                     CornerRadius="10" Background="#66000012">
-								<StackPanel Name="ChatWindow"  Orientation="Vertical" CanVerticallyScroll="True" />
+								<StackPanel Name="ChatWindow"  Orientation="Vertical" CanVerticallyScroll="True"/>
 							</Border>
 						</ScrollViewer>
 						<!--Input Text Area-->
