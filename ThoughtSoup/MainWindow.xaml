@@ -511,7 +511,7 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height=".5*"/>
-                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="Auto" MaxHeight="150" />
                         </Grid.RowDefinitions>
                         <!--Background Soup Logo-->
                         <Image Source="Resources/SoupLogo3.png" 
@@ -526,11 +526,11 @@
                         </Border>
             </ScrollViewer>
             <!--Input Text Area-->
-                        <TextBox x:Name="MessageInputBox" FontSize="18" 
-                                 Padding="5"  
-                                 Grid.Row="4" 
-                                 Grid.Column="0" Grid.ColumnSpan="6" 
-                                 Margin="7,0,7,5" KeyDown="MessageInputBox_KeyDown">
+            <TextBox x:Name="MessageInputBox" FontSize="18"  TextWrapping="Wrap" 
+                       Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5" Margin="7,0,7,5" Padding="5" 
+                     MaxHeight="150"
+                     VerticalScrollBarVisibility="Auto" 
+                     KeyDown="MessageInputBox_KeyDown">
                             <TextBox.Style>
                                 <Style TargetType="TextBox">
                                     <Setter Property="Template">
@@ -593,8 +593,7 @@
                                 </Style>
                             </TextBox.Style>
                         </TextBox>
-
-                        <!--Send Message Button-->
+            <!--Send Message Button-->
                         <Button x:Name="SendButton" Background="#9DF05D" 
                                 BorderBrush="Transparent"
                                 Margin="10,4,12,8"

@@ -11,8 +11,8 @@
       <RowDefinition/>
     </Grid.RowDefinitions>
     <Border BorderThickness="1" BorderBrush="Transparent" 
-            MaxWidth="700" 
-            MaxHeight="200"
+            MaxWidth="600" 
+            Height="Auto"
             Margin="5"
             Background="{Binding BackgroundColor, RelativeSource={RelativeSource AncestorType=UserControl}}"  
             HorizontalAlignment="{Binding Position, RelativeSource={RelativeSource AncestorType=UserControl}}"
