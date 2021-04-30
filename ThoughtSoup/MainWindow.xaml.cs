@@ -93,7 +93,7 @@ namespace ThoughtSoup
                        bubble = new ChatBubble(new ReceivedMessageOptions(), message);
                    }
 
-                   RecievedMessage messageBubble = new RecievedMessage(bubble);
+                   MessageBubble messageBubble = new MessageBubble(bubble);
                    
                    ChatWindow.Children.Add(messageBubble);
                })
@@ -105,12 +105,12 @@ namespace ThoughtSoup
                _connectionID = connection.ConnectionId;
                await connection.InvokeAsync(
                   "SendMessage",
-                  new ChatMessage {Message = $"User with connectionID of {_connectionID} has joined.\n", ConnectionID = _connectionID}
+                  new ChatMessage {Message = $"User with connectionID of {_connectionID} has joined.", ConnectionID = _connectionID}
                );
             }
             catch (Exception ex)
             {
-                    RecievedMessage errorMessage = new RecievedMessage(new ChatBubble(null, new ChatMessage { Message = ex.Message }));
+                    MessageBubble errorMessage = new MessageBubble(new ChatBubble(null, new ChatMessage { Message = ex.Message }));
                     ChatWindow.Children.Add(errorMessage);
             }
          }

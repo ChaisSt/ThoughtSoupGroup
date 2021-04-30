@@ -8,5 +8,6 @@ namespace ThoughtSoup.Domain.Models
     {
         Position Position { get; set; }
         ColorEnum Color { get; set; }
+        string BorderRadius { get; set; }
     }
 }

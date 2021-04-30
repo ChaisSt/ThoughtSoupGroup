@@ -181,11 +181,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="RecievedMessage.xaml.cs">
-      <DependentUpon>RecievedMessage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SentMessage.xaml.cs">
-      <DependentUpon>SentMessage.xaml</DependentUpon>
+    <Compile Include="MessageBubble.xaml.cs">
+      <DependentUpon>MessageBubble.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\SignalRChatService.cs" />
     <Page Include="MainWindow.xaml">
@@ -200,11 +197,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="RecievedMessage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="SentMessage.xaml">
+    <Page Include="MessageBubble.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
