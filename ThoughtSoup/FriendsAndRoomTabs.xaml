@@ -29,6 +29,7 @@
                          BorderBrush="Transparent"
                          HorizontalAlignment="Left" 
                          VerticalAlignment="Top" 
+                         ScrollViewer.HorizontalScrollBarVisibility="Hidden"
 						 Height="{Binding ElementName=FriendsGrid, Path=ActualHeight}"
                          Width="{Binding ElementName=FriendsGrid, Path=ActualWidth}" 
                          RenderTransformOrigin="0.5,0.5">
@@ -89,6 +90,7 @@
                          BorderBrush="Transparent"
                          HorizontalAlignment="Left" 
                          VerticalAlignment="Top" 
+                         ScrollViewer.HorizontalScrollBarVisibility="Hidden"
 			      		 Height="{Binding ElementName=RoomsGrid, Path=ActualHeight}"
                          Width="{Binding ElementName=RoomsGrid, Path=ActualWidth}" 
                          RenderTransformOrigin="0.5,0.5">
