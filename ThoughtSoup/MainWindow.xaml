@@ -517,20 +517,15 @@
                         <Image Source="Resources/SoupLogo3.png" 
                                Grid.Column="2" Grid.ColumnSpan="2"
                                Grid.Row="1" Grid.RowSpan="2" />
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="0" Grid.ColumnSpan="6"
+                                Grid.Row="0" Grid.RowSpan="4" Margin="5" >
                         <Border Grid.Column="0" Grid.ColumnSpan="6"
-                                   Grid.Row="0" Grid.RowSpan="4" Margin="5" 
+                                Grid.Row="0" Grid.RowSpan="4" Margin="5" 
                                 CornerRadius="10" Background="#66000012">
-                            <!--<TextBlock x:Name="ChatWIndow" 
-                                   TextWrapping="Wrap"  Margin="5"
-                                   
-                                   Grid.Column="0" Grid.ColumnSpan="6"
-                                   Grid.Row="0" Grid.RowSpan="4" Foreground="White">
-
-                            </TextBlock>-->
-
-              <StackPanel Name="ChatWindow" Grid.Column="0" Grid.ColumnSpan="6" Grid.Row="0" Grid.RowSpan="4" Orientation="Vertical" />
-            </Border>
-                        <!--Input Text Area-->
+                            <StackPanel Name="ChatWindow"  Orientation="Vertical" CanVerticallyScroll="True" />
+                        </Border>
+            </ScrollViewer>
+            <!--Input Text Area-->
                         <TextBox x:Name="MainTextBox" FontSize="18" 
                                  Padding="5"  
                                  Grid.Row="4" 
