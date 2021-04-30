@@ -9,25 +9,29 @@
 			 >
 	
 	<TabControl Background="#290E61" 
-                        BorderBrush="#9DF05D" 
-                        Margin="20,0,10,20"
-                        Name="FriendRoomTabGroup"
-                        Style="{StaticResource GeneralTabControlStyles}">
+                BorderBrush="#9DF05D" 
+                Margin="20,0,10,20"
+                Name="FriendRoomTabGroup"
+                Style="{StaticResource GeneralTabControlStyles}">
 
+        <!--Friends Tab-->
 		<TabItem Header="Friends" 
-						 FontSize="30" 
-                         Foreground="#FF43B7D1" 
-                         Name="FriendsHeader" 
-                         Style="{StaticResource FriendsTabStyles}" FontFamily="/ThoughtSoup;component/Fonts/#After Night" Height="58" Margin="-2,0,-0.4,-2.8" VerticalAlignment="Top">
+				 FontSize="30" 
+                 Foreground="#FF43B7D1" 
+                 Name="FriendsHeader" 
+                 Style="{StaticResource FriendsTabStyles}" 
+                 FontFamily="/ThoughtSoup;component/Fonts/#After Night" 
+                 Height="58" Margin="-2,0,-0.4,-2.8" 
+                 VerticalAlignment="Top">
 			<Grid Name="FriendsGrid" Margin="5">
 				<ListBox x:Name="FriendsList" 
-                              Background="#200457" 
-                              BorderBrush="Transparent"
-                              HorizontalAlignment="Left" 
-                              VerticalAlignment="Top" 
-							  Height="{Binding ElementName=FriendsGrid, Path=ActualHeight}"
-                              Width="{Binding ElementName=FriendsGrid, Path=ActualWidth}" 
-                              RenderTransformOrigin="0.5,0.5">
+                         Background="#290E61" 
+                         BorderBrush="Transparent"
+                         HorizontalAlignment="Left" 
+                         VerticalAlignment="Top" 
+						 Height="{Binding ElementName=FriendsGrid, Path=ActualHeight}"
+                         Width="{Binding ElementName=FriendsGrid, Path=ActualWidth}" 
+                         RenderTransformOrigin="0.5,0.5">
 					<ListBox.RenderTransform>
 						<TransformGroup>
 							<ScaleTransform/>
@@ -36,38 +40,58 @@
 							<TranslateTransform X="-0.997"/>
 						</TransformGroup>
 					</ListBox.RenderTransform>
-					<ListBoxItem Width="{Binding ElementName=RoomsList, Path=ActualWidth}" Height="40" Padding="0">
-						<Viewbox StretchDirection="Both" Stretch="Uniform" Margin="0">
-							<TextBlock Margin="0,0,10,0" Padding="3" Foreground="Aqua" Text="Christopher Allen Chase" FontStretch="Expanded"/>
+					<ListBoxItem Width="{Binding ElementName=RoomsList, Path=ActualWidth}" 
+                                 Height="40" Padding="0">
+						<Viewbox StretchDirection="Both" 
+                                 Stretch="Uniform" Margin="0">
+							<TextBlock Margin="0,0,10,0" 
+                                       Padding="3" Foreground="Aqua" 
+                                       Text="Christopher Allen Chase" 
+                                       FontStretch="Expanded"/>
 						</Viewbox>
 					</ListBoxItem>
-					<ListBoxItem Width="{Binding ElementName=RoomsList, Path=ActualWidth}" Height="40" Padding="0">
-						<Viewbox StretchDirection="Both" Stretch="Uniform" Margin="0">
-							<TextBlock Margin="0,0,10,0" Padding="3" Foreground="Aqua" Text="Christopher Chase" FontStretch="Expanded"/>
+					<ListBoxItem Width="{Binding ElementName=RoomsList, Path=ActualWidth}" 
+                                 Height="40" Padding="0">
+						<Viewbox StretchDirection="Both" 
+                                 Stretch="Uniform" Margin="0">
+							<TextBlock Margin="0,0,10,0" Padding="3" 
+                                       Foreground="Aqua" 
+                                       Text="Christopher Chase" 
+                                       FontStretch="Expanded"/>
 						</Viewbox>
 					</ListBoxItem>
-					<ListBoxItem Width="{Binding ElementName=RoomsList, Path=ActualWidth}" Height="40" Padding="0">
-						<Viewbox StretchDirection="Both" Stretch="Uniform" Margin="0">
-							<TextBlock Margin="0,0,10,0" Padding="3" Foreground="Aqua" Text="ChrisChase" FontStretch="Expanded" FontSize="20"/>
+					<ListBoxItem Width="{Binding ElementName=RoomsList, Path=ActualWidth}" 
+                                 Height="40" Padding="0">
+						<Viewbox StretchDirection="Both" 
+                                 Stretch="Uniform" Margin="0">
+							<TextBlock Margin="0,0,10,0" 
+                                       Padding="3" 
+                                       Foreground="Aqua" 
+                                       Text="ChrisChase" 
+                                       FontStretch="Expanded" 
+                                       FontSize="20"/>
 						</Viewbox>
 					</ListBoxItem>
 				</ListBox>
 			</Grid>
 		</TabItem>
-		<TabItem Header="Rooms" 
-                         FontSize="30" 
-                         Foreground="#43C1D1" 
-                         Name="RoomsHeader" 
-                         Style="{StaticResource ChatRoomTabStyles}" FontFamily="/ThoughtSoup;component/Fonts/#Neon Lights" >
+		
+        <!-- Rooms Tab-->
+        <TabItem Header="Rooms" 
+                 FontSize="30" 
+                 Foreground="#43C1D1" 
+                 Name="RoomsHeader" 
+                 Style="{StaticResource ChatRoomTabStyles}" 
+                 FontFamily="/ThoughtSoup;component/Fonts/#Neon Lights" >
 			<Grid Name="RoomsGrid" Margin="5">
 				<ListBox x:Name="RoomsList" 
-                              Background="#200457" 
-                              BorderBrush="Transparent"
-                              HorizontalAlignment="Left" 
-                              VerticalAlignment="Top" 
-							  Height="{Binding ElementName=RoomsGrid, Path=ActualHeight}"
-                              Width="{Binding ElementName=RoomsGrid, Path=ActualWidth}" 
-                              RenderTransformOrigin="0.5,0.5">
+                         Background="#290E61" 
+                         BorderBrush="Transparent"
+                         HorizontalAlignment="Left" 
+                         VerticalAlignment="Top" 
+			      		 Height="{Binding ElementName=RoomsGrid, Path=ActualHeight}"
+                         Width="{Binding ElementName=RoomsGrid, Path=ActualWidth}" 
+                         RenderTransformOrigin="0.5,0.5">
 					<ListBox.RenderTransform>
 						<TransformGroup>
 							<ScaleTransform/>
@@ -76,9 +100,15 @@
 							<TranslateTransform X="-0.997"/>
 						</TransformGroup>
 					</ListBox.RenderTransform>
-					<ListBoxItem Width="{Binding ElementName=RoomsList, Path=ActualWidth}" Padding="0">
-						<Viewbox StretchDirection="Both" Stretch="Uniform" Margin="0">
-							<TextBlock Margin="0,0,10,0" Padding="3" Foreground="Aqua" Text="The super cool room" FontStretch="Expanded"/>
+					<ListBoxItem Width="{Binding ElementName=RoomsList, Path=ActualWidth}" 
+                                 Padding="0">
+						<Viewbox StretchDirection="Both" 
+                                 Stretch="Uniform" Margin="0">
+							<TextBlock Margin="0,0,10,0" 
+                                       Padding="3" 
+                                       Foreground="Aqua" 
+                                       Text="The super cool room" 
+                                       FontStretch="Expanded"/>
 						</Viewbox>
 					</ListBoxItem>
 				</ListBox>
