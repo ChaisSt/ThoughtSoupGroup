@@ -15,13 +15,13 @@ namespace ThoughtSoup
 
             MessageText = message.Message.Message;
 
-            BackgroundColor = message.Options.Color.Value;
+            BorderColor = message.Options.Color.Value;
 
             Position = message.Options.Position.Value;
 
             Radius = message.Options.BorderRadius;
 
-
+            Pic = message.Message.ProfilePic;
         }
 
         public MessageBubble(){
@@ -30,13 +30,21 @@ namespace ThoughtSoup
 
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register(nameof(MessageText), typeof(string), typeof(MessageBubble));
 
-        public static readonly DependencyProperty ColorProperty = DependencyProperty.Register(nameof(BackgroundColor), typeof(string), typeof(MessageBubble));
+        public static readonly DependencyProperty ColorProperty = DependencyProperty.Register(nameof(BorderColor), typeof(string), typeof(MessageBubble));
+
+        public static readonly DependencyProperty ImageSource = DependencyProperty.Register(nameof(Pic), typeof(string), typeof(MessageBubble));
 
         public static readonly DependencyProperty AlignmentProperty = DependencyProperty.Register(nameof(Position), typeof(string), typeof(MessageBubble));
 
         public static readonly DependencyProperty RadiusProperty = DependencyProperty.Register(nameof(Radius), typeof(string), typeof(MessageBubble));
 
-        public string BackgroundColor
+        public string Pic
+        {
+            get { return (string)GetValue(ImageSource); }
+            set { SetValue(ImageSource, value); }
+        }
+
+        public string BorderColor
         {
             get { return (string)GetValue(ColorProperty); }
             set { SetValue(ColorProperty, value); }

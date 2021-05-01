@@ -10,104 +10,116 @@ using ThoughtSoup.Domain.Models;
 
 namespace ThoughtSoup
 {
-   /// <summary>
-   ///    Interaction logic for MainWindow.xaml
-   /// </summary>
-   public partial class MainWindow : Window
-   {
-      private HubConnection connection;
+    /// <summary>
+    ///    Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        private HubConnection connection;
 
-        private string _connectionID; 
+        private string _connectionID;
 
-      public MainWindow()
-      {
-         InitializeComponent();
+        public string username;
 
-         InitializeSignalR();
-      }
+        public MainWindow()
+        {
+            InitializeComponent();
 
-      private async void SendButton_Click(object sender, RoutedEventArgs e)
-      {
-         ChatMessage message = new ChatMessage {Message = MessageInputBox.Text, ConnectionID = _connectionID};
+            InitializeSignalR();
+        }
 
-         await connection.InvokeAsync("SendMessage", message);
+        private async void SendButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+            ChatMessage message = new ChatMessage { Message = MessageInputBox.Text, ProfilePic = "Resources/neonCool1.jpg", UserName = "SomeUsername", ConnectionID = _connectionID };
 
-         MessageInputBox.Text = string.Empty;
-      }
+            await connection.InvokeAsync("SendMessage", message);
 
-      private async void InitializeSignalR()
-      {
-         try
-         {
-            connection = new HubConnectionBuilder()
-                        .WithUrl("http://localhost:5000/ThoughtSoupChat")
-                        .WithAutomaticReconnect()
-                        .Build();
+            MessageInputBox.Text = string.Empty;
+        }
 
-            #region snippet_ClosedRestart
-
-            connection.Closed += async (error) =>
-            {
-               await Task.Delay(new Random().Next(0, 5) * 1000);
-               await connection.StartAsync();
-            };
-
-            #endregion
-
-            connection.On(
-               "ReceiveMessage",
-               (ChatMessage message) => Dispatcher.Invoke(() => {
-                   ChatBubble bubble;
-
-                   if (message.ConnectionID == _connectionID)
-                   {
-                       bubble = new ChatBubble(new SentMessageOptions(), message);
-                   }
-                   else
-                   {
-                       bubble = new ChatBubble(new ReceivedMessageOptions(), message);
-                   }
-
-                   MessageBubble messageBubble = new MessageBubble(bubble);
-                   
-                   ChatWindow.Children.Add(messageBubble);
-               })
-            );
-
+        private async void InitializeSignalR()
+        {
+            username = "SomeUsername";
             try
             {
-               await connection.StartAsync();
-               _connectionID = connection.ConnectionId;
-               await connection.InvokeAsync(
-                  "SendMessage",
-                  new ChatMessage {Message = $"User with connectionID of {_connectionID} has joined.", ConnectionID = _connectionID}
-               );
+                connection = new HubConnectionBuilder()
+                            .WithUrl("http://localhost:5000/ThoughtSoupChat")
+                            .WithAutomaticReconnect()
+                            .Build();
+
+                #region snippet_ClosedRestart
+
+                connection.Closed += async (error) =>
+                {
+                    await Task.Delay(new Random().Next(0, 5) * 1000);
+                    await connection.StartAsync();
+                };
+
+                #endregion
+
+                connection.On(
+                   "ReceiveMessage",
+                   (ChatMessage message) => Dispatcher.Invoke(() =>
+                   {
+                       ChatBubble bubble;
+
+                       if (message.ConnectionID == _connectionID)
+                       {
+                           bubble = new ChatBubble(new SentMessageOptions(), message);
+                       }
+                       else
+                       {
+                           bubble = new ChatBubble(new ReceivedMessageOptions(), message);
+                       }
+
+                       MessageBubble messageBubble = new MessageBubble(bubble);
+                       
+                       ChatWindow.Children.Add(messageBubble);
+                   })
+                );
+
+                try
+                {
+                    await connection.StartAsync();
+                    _connectionID = connection.ConnectionId;
+                    await connection.InvokeAsync(
+                       "SendMessage",
+                    //new ChatMessage { Message = $"User with connectionID of {_connectionID} has joined.", ConnectionID = _connectionID },
+                    new ChatMessage { Message = $"{username} has joined the chat.", UserName = username }
+                       );
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBubble errorMessage = new MessageBubble(new ChatBubble(null, new ChatMessage { Message = ex.Message }));
+                    ChatWindow.Children.Add(errorMessage);
+                }
             }
             catch (Exception ex)
             {
-                    MessageBubble errorMessage = new MessageBubble(new ChatBubble(null, new ChatMessage { Message = ex.Message }));
-                    ChatWindow.Children.Add(errorMessage);
+                throw ex;
             }
-         }
-         catch (Exception ex)
-         {
-            throw ex;
-         }
-      }
+        }
 
         private void MessageInputBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if(e.KeyboardDevice.Modifiers == ModifierKeys.Control && e.Key == Key.Enter)
+            if (e.KeyboardDevice.Modifiers == ModifierKeys.Control && e.Key == Key.Enter)
             {
                 int caret = MessageInputBox.CaretIndex;
                 MessageInputBox.Text = MessageInputBox.Text.Insert(caret, Environment.NewLine);
                 MessageInputBox.CaretIndex = caret + Environment.NewLine.Length;
                 return;
             }
-            if(e.Key == Key.Enter)
+            if (e.Key == Key.Enter)
             {
                 SendButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             }
         }
-	}
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+    }
 }

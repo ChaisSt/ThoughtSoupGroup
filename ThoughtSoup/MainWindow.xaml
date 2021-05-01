@@ -12,7 +12,8 @@
         Background="Transparent"
         ResizeMode="CanResizeWithGrip"
         AllowsTransparency="True" Foreground="{x:Null}" 
-        Template="{StaticResource WindowTemplateKey}">
+        Template="{StaticResource WindowTemplateKey}"
+        MouseDown="Window_MouseDown">
 
 
 	<Border Background="#19014A" CornerRadius="15" Padding="5" AllowDrop="True">
@@ -107,8 +108,7 @@
                         BorderBrush="#FD5E49"  
                         Grid.Column="1" Grid.ColumnSpan="4"
                         Grid.Row="2" Grid.RowSpan="3"  
-						Style="{StaticResource GeneralTabControlStyles}"
-						>
+						Style="{StaticResource GeneralTabControlStyles}">
 				<!--Style="{DynamicResource TabControlStyle1}">-->
 				<TabItem Header="TheSoupChat" 
                          FontSize="30" 
@@ -143,16 +143,20 @@
 							<Border Grid.Column="0" Grid.ColumnSpan="6"
                                     Grid.Row="0" Grid.RowSpan="4" Margin="5" 
                                     CornerRadius="10" Background="#66000012">
-								<StackPanel Name="ChatWindow"  Orientation="Vertical" CanVerticallyScroll="True"/>
+								<StackPanel Name="ChatWindow" Orientation="Vertical" CanVerticallyScroll="True"/>
 							</Border>
 						</ScrollViewer>
 						<!--Input Text Area-->
-						<TextBox x:Name="MessageInputBox" FontSize="18"  TextWrapping="Wrap" 
-                                   Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5" 
+						<TextBox x:Name="MessageInputBox" 
+                                 FontSize="18"  
+                                 TextWrapping="Wrap" 
+                                 Grid.Row="4" Grid.Column="0" 
+                                 Grid.ColumnSpan="5" 
                                  Margin="7,0,7,5" 
                                  Padding="10" 
                                  MaxHeight="150"
                                  VerticalScrollBarVisibility="Auto" 
+                                 FontFamily="serif"
                                  KeyDown="MessageInputBox_KeyDown">
 							<TextBox.Style>
 								<Style TargetType="TextBox">
