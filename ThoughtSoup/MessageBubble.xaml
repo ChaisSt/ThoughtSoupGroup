@@ -17,6 +17,7 @@
         </Grid.ColumnDefinitions>
         <Ellipse Height="50" 
                  Width="50" 
+                 Grid.RowSpan="2"
                  HorizontalAlignment="Right" 
                  VerticalAlignment="Bottom" 
                  Margin="10" Grid.Column="{Binding ImageColumn, RelativeSource={RelativeSource AncestorType=UserControl}}">
@@ -37,16 +38,16 @@
                 CornerRadius="{Binding Radius, RelativeSource={RelativeSource AncestorType=UserControl}}">
 			<Grid Grid.Row="0" Grid.Column="{Binding MessageColumn, RelativeSource={RelativeSource AncestorType=UserControl}}">
 				<Grid.RowDefinitions>
-					<RowDefinition Height="*"/>
+					<RowDefinition Height="*" />
 					<RowDefinition Height="20"/>
 				</Grid.RowDefinitions>
                 <TextBlock x:Name="MsgBubble" 
                             Foreground="White" 
                             TextWrapping="Wrap" 
                             Grid.Row="0"
-                            LineHeight="2" 
+                            LineHeight="1" 
                         FontSize="20"
-                        Padding="10"
+                        Padding="10, 10, 10, 5"
                         Background="Transparent"
                         FontFamily="serif"
                         Text="{Binding MessageText, RelativeSource={RelativeSource AncestorType=UserControl}}"/>

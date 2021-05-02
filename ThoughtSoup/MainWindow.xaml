@@ -48,9 +48,10 @@
                    Grid.RowSpan="2"/>
 
 			<!--Username and photo -->
-			<local:ProfileHeader Grid.Row="1" 
-                        Grid.Column="3" 
-                        Grid.ColumnSpan="2"/>
+			<StackPanel Name="ProfileInformationHeader" Grid.Row="1" 
+							Grid.Column="3" 
+							Grid.ColumnSpan="2">
+			</StackPanel>
 			
 			<local:FriendsAndRoomTabs x:Name="FriendsAndRoomTabs" Grid.Column="0" Grid.Row="2" Grid.RowSpan="3" />
 

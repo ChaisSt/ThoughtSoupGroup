@@ -288,18 +288,15 @@
     <Resource Include="Resources\SoupLogo1.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\neonCool.jpg" />
-    <Resource Include="Resources\neonHappy.jpg" />
-    <Resource Include="Resources\neonLove.jpg" />
-    <Resource Include="Resources\neonMad.jpg" />
-    <Resource Include="Resources\neonSad.jpg" />
-    <Resource Include="Resources\neonShock.jpg" />
-    <Resource Include="Resources\neonSick.jpg" />
-    <Resource Include="Resources\neonSmile.jpg" />
-    <Resource Include="Resources\neonWink.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\neonCool1.jpg" />
+    <Resource Include="Resources\ProfilePictures\Cool.jpg" />
+    <Resource Include="Resources\ProfilePictures\Happy.jpg" />
+    <Resource Include="Resources\ProfilePictures\Love.jpg" />
+    <Resource Include="Resources\ProfilePictures\Mad.jpg" />
+    <Resource Include="Resources\ProfilePictures\Sad.jpg" />
+    <Resource Include="Resources\ProfilePictures\Shock.jpg" />
+    <Resource Include="Resources\ProfilePictures\Sick.jpg" />
+    <Resource Include="Resources\ProfilePictures\Smile.jpg" />
+    <Resource Include="Resources\ProfilePictures\Wink.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Close2.png" />

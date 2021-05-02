@@ -24,6 +24,8 @@ namespace ThoughtSoup
 
         private string _username;
 
+        private string _profilePicturePath;
+
         private List<UserProfile> _userProfiles;
 
 
@@ -35,30 +37,17 @@ namespace ThoughtSoup
 
             InitializeSignalR();
 
-            GetUserName();
+            _username = Users.GetUserName(_userProfiles);
 
-        }
+            _profilePicturePath = ProfilePictures.GetPicturePath();
 
-        private void GetUserName()
-        {
-            Array usernames = Enum.GetValues(typeof(UserNames));
-            Random random = new Random();
-            if (_userProfiles is null)
-            {
-                _username = usernames.GetValue(random.Next(usernames.Length)).ToString();
-            }
-            else
-            {
-                UserProfile user = _userProfiles.FirstOrDefault(u => u.Username != (string)usernames.GetValue(random.Next(usernames.Length)));
-                _username = user.Username;
-
-            }
+            ProfileInformationHeader.Children.Add(new ProfileHeader(_username, _profilePicturePath));
 
         }
 
         private async void SendButton_Click(object sender, RoutedEventArgs e)
         {
-            ChatMessage message = new ChatMessage { Message = MessageInputBox.Text, ConnectionID = _connectionID };
+            ChatMessage message = new ChatMessage { Message = MessageInputBox.Text, ConnectionID = _connectionID, ProfilePic = _profilePicturePath };
 
             await connection.InvokeAsync("SendMessage", message);
 
@@ -143,7 +132,7 @@ namespace ThoughtSoup
                     _connectionID = connection.ConnectionId;
                     await connection.InvokeAsync(
                        "SendMessage",
-                       new ChatMessage { Message = $"{_username} has joined.", ConnectionID = _connectionID }
+                       new ChatMessage { Message = $"{_username} has joined.", ConnectionID = _connectionID, ProfilePic = _profilePicturePath }
                     );
                     UserProfile profile = new UserProfile(_username, _connectionID);
                     await connection.InvokeAsync("AddUserConnection", JsonConvert.SerializeObject(profile));

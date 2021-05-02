@@ -10,8 +10,8 @@
     <StackPanel Orientation="Horizontal" 
                 HorizontalAlignment="Right">
 		<StackPanel>
-			<Label Content="SomeUsername"
-                   x:Name="UserName"
+			<Label Content="{Binding UserName, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                   x:Name="UserNameLabel"
                    FontFamily="/ThoughtSoup;component/Fonts/#NEON ABSOLUTE SANS 1" 
                    FontSize="20" 
                    HorizontalAlignment="Right" 
@@ -49,7 +49,7 @@
                          VerticalAlignment="Top" 
                          Margin="10">
 			<Ellipse.Fill>
-				<ImageBrush x:Name="ProfileImg" ImageSource="Resources/neonCool1.jpg"/>
+				<ImageBrush x:Name="ProfileImg" ImageSource="{Binding ProfilePicturePath, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
 			</Ellipse.Fill>
 		</Ellipse>
 	</StackPanel>
