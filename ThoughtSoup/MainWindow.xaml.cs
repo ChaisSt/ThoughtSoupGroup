@@ -119,7 +119,9 @@ namespace ThoughtSoup
                             listItem.SetBinding(FrameworkElement.WidthProperty, binding);
                             listItem.ListItemTextbox.SetBinding(FrameworkElement.WidthProperty, binding);
 
-                            FriendsAndRoomTabs.FriendsList.Items.Add(listItem);
+                            if(profile.UserConnectionID != _connectionID){
+                                FriendsAndRoomTabs.FriendsList.Items.Add(listItem);
+							}
                         });
                     })
                 );
@@ -131,7 +133,7 @@ namespace ThoughtSoup
                     await connection.StartAsync();
                     _connectionID = connection.ConnectionId;
                     await connection.InvokeAsync(
-                       "SendMessage",
+                       "SendConnectionMessage",
                        new ChatMessage { Message = $"{_username} has joined.", ConnectionID = _connectionID, ProfilePic = _profilePicturePath }
                     );
                     UserProfile profile = new UserProfile(_username, _connectionID);
