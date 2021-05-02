@@ -8,9 +8,8 @@ using System.Windows.Media.Imaging;
 using Microsoft.AspNetCore.SignalR.Client;
 using Newtonsoft.Json;
 using ThoughtSoup.Domain.Models;
-
-
-
+using System.Linq;
+using System.Windows.Data;
 
 namespace ThoughtSoup
 {
@@ -25,7 +24,10 @@ namespace ThoughtSoup
 
         private string _username;
 
+        private List<UserProfile> _userProfiles;
 
+
+        
 
       public MainWindow()
       {
@@ -40,7 +42,15 @@ namespace ThoughtSoup
         private void GetUserName(){
             Array usernames = Enum.GetValues(typeof(UserNames));
             Random random = new Random();
-            _username = usernames.GetValue(random.Next(usernames.Length)).ToString();
+            if(_userProfiles is null){
+                _username = usernames.GetValue(random.Next(usernames.Length)).ToString();
+            }
+            else {
+                UserProfile user = _userProfiles.FirstOrDefault(u => u.Username != (string)usernames.GetValue(random.Next(usernames.Length)));
+                _username = user.Username;
+
+			}
+
         }
 
         private async void SendButton_Click(object sender, RoutedEventArgs e)
@@ -54,7 +64,6 @@ namespace ThoughtSoup
 
         private async void InitializeSignalR()
         {
-            username = "SomeUsername";
             try
             {
                 connection = new HubConnectionBuilder()
@@ -104,14 +113,21 @@ namespace ThoughtSoup
 
                     var userProfiles = JsonConvert.DeserializeObject<UserProfile[]>(profiles);
 
+                    _userProfiles = new List<UserProfile>(userProfiles);
                     FriendsAndRoomTabs.FriendsList.Items.Clear();
 
-                    Array.ForEach(userProfiles, (profile) =>
-                    {
-                    FriendsAndRoomTabs.FriendsList.Items.Add(profile.Username);
-                    });
+                    _userProfiles.ForEach(profile => {
+                        ListItemContent listItem = new ListItemContent(profile.Username);
 
-				})
+                        Binding binding = new Binding();
+                        binding.Mode = BindingMode.OneWay;
+                        binding.Source = listItem.Parent;
+                        listItem.SetBinding(FrameworkElement.WidthProperty, binding);
+                        listItem.ListItemTextbox.SetBinding(FrameworkElement.WidthProperty, binding);
+
+                        FriendsAndRoomTabs.FriendsList.Items.Add(listItem);
+                    });
+                })
             );
 
 
