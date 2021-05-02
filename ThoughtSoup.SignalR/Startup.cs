@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ThoughtSoup.SignalR.Hubs;
+using ThoughtSoup.SignalR.Repository;
 
 namespace ThoughtSoup.SignalR
 {
@@ -24,6 +25,8 @@ namespace ThoughtSoup.SignalR
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSignalR();
+
+            services.AddSingleton<OnlineUsers>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

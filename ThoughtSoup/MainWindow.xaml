@@ -50,56 +50,8 @@
 			<local:ProfileHeader Grid.Row="1" 
                         Grid.Column="3" 
                         Grid.ColumnSpan="2"/>
-			<!--<StackPanel Orientation="Horizontal" 
-                        HorizontalAlignment="Right" 
-                        Grid.Row="1" 
-                        Grid.Column="3" 
-                        Grid.ColumnSpan="2">
-				<StackPanel>
-					<Label Content="SomeUsername" 
-                       FontFamily="/ThoughtSoup;component/Fonts/#NEON ABSOLUTE SANS 1" 
-                       FontSize="20" 
-                       HorizontalAlignment="Right" 
-                       Foreground="#9DF05D" 
-                       Margin="0,15,0,0" />
-					<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-						<Border BorderThickness="2"
-                            BorderBrush="Green"
-                            Background="Lime"
-                            CornerRadius="30"
-                            Width="10" Height="10">
-							<Border.Style>
-								<Style TargetType="Border">
-									<Setter Property="Effect">
-										<Setter.Value>
-											<DropShadowEffect ShadowDepth="0" 
-                                                                      Color="Lime" 
-                                                                      Opacity="50" 
-                                                                      BlurRadius="10"/>
-										</Setter.Value>
-									</Setter>
-								</Style>
-							</Border.Style>
-						</Border>
-						<Label Content="Online"
-                           Foreground="White"
-                           FontSize="16"
-                           HorizontalAlignment="Right"
-                           Margin="0,-10"/>
-					</StackPanel>
-				</StackPanel>
-				<Ellipse Height="60" 
-                         Width="60" 
-                         HorizontalAlignment="Right" 
-                         VerticalAlignment="Top" 
-                         Margin="10">
-					<Ellipse.Fill>
-						<ImageBrush ImageSource="Resources/neonCool1.jpg"/>
-					</Ellipse.Fill>
-				</Ellipse>
-			</StackPanel>-->
-
-			<local:FriendsAndRoomTabs Grid.Column="0" Grid.Row="2" Grid.RowSpan="3" />
+			
+			<local:FriendsAndRoomTabs x:Name="FriendsAndRoomTabs" Grid.Column="0" Grid.Row="2" Grid.RowSpan="3" />
 
 			<!--Chatroom Tabs-->
 			<TabControl Background="#200457" 

@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using Microsoft.AspNetCore.SignalR.Client;
+using Newtonsoft.Json;
 using ThoughtSoup.Domain.Models;
+
+
 
 
 namespace ThoughtSoup
@@ -17,16 +21,29 @@ namespace ThoughtSoup
    {
       private HubConnection connection;
 
-        private string _connectionID; 
+        private string _connectionID;
+
+        private string _username;
+
+
 
       public MainWindow()
       {
          InitializeComponent();
 
          InitializeSignalR();
-      }
 
-      private async void SendButton_Click(object sender, RoutedEventArgs e)
+         GetUserName();
+
+		}
+
+        private void GetUserName(){
+            Array usernames = Enum.GetValues(typeof(UserNames));
+            Random random = new Random();
+            _username = usernames.GetValue(random.Next(usernames.Length)).ToString();
+        }
+
+        private async void SendButton_Click(object sender, RoutedEventArgs e)
       {
          ChatMessage message = new ChatMessage {Message = MessageInputBox.Text, ConnectionID = _connectionID};
 
@@ -43,6 +60,9 @@ namespace ThoughtSoup
                         .WithUrl("http://localhost:5000/ThoughtSoupChat")
                         .WithAutomaticReconnect()
                         .Build();
+
+            
+
 
             #region snippet_ClosedRestart
 
@@ -74,18 +94,41 @@ namespace ThoughtSoup
                })
             );
 
+
+            
+            connection.On(
+                "ReceiveUsers",
+                (string profiles) => Dispatcher.Invoke(() => {
+
+                    var userProfiles = JsonConvert.DeserializeObject<UserProfile[]>(profiles);
+
+                    FriendsAndRoomTabs.FriendsList.Items.Clear();
+
+                    Array.ForEach(userProfiles, (profile) =>
+                    {
+                    FriendsAndRoomTabs.FriendsList.Items.Add(profile.Username);
+                    });
+
+				})
+            );
+
+
+
             try
             {
                await connection.StartAsync();
                _connectionID = connection.ConnectionId;
                await connection.InvokeAsync(
                   "SendMessage",
-                  new ChatMessage {Message = $"User with connectionID of {_connectionID} has joined.", ConnectionID = _connectionID}
+                  new ChatMessage {Message = $"{_username} has joined.", ConnectionID = _connectionID}
                );
+                    UserProfile profile = new UserProfile(_username, _connectionID);
+               await connection.InvokeAsync("AddUserConnection", JsonConvert.SerializeObject(profile));
+               await connection.InvokeAsync("GetUsers");
             }
             catch (Exception ex)
             {
-                    MessageBubble errorMessage = new MessageBubble(new ChatBubble(null, new ChatMessage { Message = ex.Message }));
+                    MessageBubble errorMessage = new MessageBubble(new ChatBubble(new SentMessageOptions(), new ChatMessage { Message = ex.Message }));
                     ChatWindow.Children.Add(errorMessage);
             }
          }

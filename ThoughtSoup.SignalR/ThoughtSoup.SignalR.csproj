@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="NewtonSoft.JSON" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ThoughtSoup.Domain\ThoughtSoup.Domain.csproj" />
   </ItemGroup>
 

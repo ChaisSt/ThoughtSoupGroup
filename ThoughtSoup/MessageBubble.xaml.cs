@@ -24,7 +24,8 @@ namespace ThoughtSoup
 
         }
 
-        public MessageBubble(){
+        public MessageBubble(ReceivedMessageOptions receivedMessageOptions)
+		{
             InitializeComponent();
 		}
 

@@ -1,15 +1,59 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using ThoughtSoup.Domain.Models;
-
+using ThoughtSoup.SignalR.Repository;
+using Newtonsoft.Json;
 
 namespace ThoughtSoup.SignalR.Hubs
 {
    public class ThoughtSoupHub : Hub
    {
+		private readonly OnlineUsers _onlineUsers;
+
+		public ThoughtSoupHub(OnlineUsers onlineUsers)
+		{
+			this._onlineUsers = onlineUsers ?? throw new ArgumentNullException(nameof(onlineUsers));
+		}
+
       public async Task SendMessage(ChatMessage message)
       {
          await Clients.All.SendAsync("ReceiveMessage", message);
       }
-   }
+
+	  [HubMethodName("GetUsers")]
+	  public async Task SendUsers(){
+			var profiles = JsonConvert.SerializeObject(_onlineUsers.GetUserProfiles());
+			await Clients.All.SendAsync("ReceiveUsers", profiles).ConfigureAwait(false);
+	  }
+
+		public async Task SayHello(){
+			await Clients.All.SendAsync("SayHello", new { Name = "message", Id = Context.ConnectionId });
+	  }
+
+	  public void AddUserConnection(string user){
+			_onlineUsers.AddUser(JsonConvert.DeserializeObject<UserProfile>(user));
+	  }
+
+	  
+
+		//public override Task OnConnectedAsync()
+		//{
+		//	var profile = new UserProfile(Users.GetUserName(), Context.ConnectionId);
+		//	_onlineUsers.AddUser(profile);
+			
+		//	Console.WriteLine($"{Context.ConnectionId} - I've connected");
+		//	return base.OnConnectedAsync();
+		//}
+
+		//public override Task OnDisconnectedAsync(Exception exception)
+		//{
+
+		//	var profile = new UserProfile(Users.GetUserName(), Context.ConnectionId);
+		//	_onlineUsers.RemoveUser(profile);
+
+		//	Console.WriteLine($"{Context.ConnectionId} - I've disconnected");
+		//	return base.OnDisconnectedAsync(exception);
+		//}
+	}
 }
