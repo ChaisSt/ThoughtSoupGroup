@@ -6,24 +6,42 @@
              xmlns:local="clr-namespace:ThoughtSoup"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="400" >
-  <Grid >
-    <Grid.RowDefinitions>
-      <RowDefinition/>
-    </Grid.RowDefinitions>
-    <Border BorderThickness="1" BorderBrush="Transparent" 
-            MaxWidth="600" 
-            Height="Auto"
-            Margin="5"
-            Background="{Binding BackgroundColor, RelativeSource={RelativeSource AncestorType=UserControl}}"  
-            HorizontalAlignment="{Binding Position, RelativeSource={RelativeSource AncestorType=UserControl}}"
-            CornerRadius="{Binding Radius, RelativeSource={RelativeSource AncestorType=UserControl}}">
+  <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="70"/>
+        </Grid.ColumnDefinitions>
+        <Ellipse Height="50" 
+                 Width="50" 
+                 HorizontalAlignment="Right" 
+                 VerticalAlignment="Bottom" 
+                 Margin="10" Grid.Column="1">
+            <Ellipse.Fill>
+                <ImageBrush ImageSource="{Binding Pic, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+            </Ellipse.Fill>
+        </Ellipse>
+        <Border BorderThickness="1"
+                Grid.Column="0"
+                MaxWidth="500" 
+                Height="Auto"
+                Margin="10, 10, 0, 10"
+                BorderBrush="{Binding BorderColor, RelativeSource={RelativeSource AncestorType=UserControl}}"  
+                HorizontalAlignment="{Binding Position, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                CornerRadius="{Binding Radius, RelativeSource={RelativeSource AncestorType=UserControl}}">
       <TextBlock x:Name="MsgBubble" 
-            Grid.Row="0" 
-            Foreground="White" TextWrapping="Wrap" LineHeight="2" 
-            FontSize="24"
-            Padding="10"
-            Background="Transparent"
-            Text="{Binding MessageText, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                Grid.Row="0" 
+                Grid.Column="0"
+                 Foreground="White" 
+                 TextWrapping="Wrap" 
+                 LineHeight="2" 
+                FontSize="20"
+                Padding="10"
+                Background="Transparent"
+                FontFamily="serif"
+                Text="{Binding MessageText, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
     </Border>
   </Grid>
 </UserControl>

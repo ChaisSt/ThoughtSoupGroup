@@ -14,12 +14,12 @@ using ThoughtSoup.Domain.Models;
 
 namespace ThoughtSoup
 {
-   /// <summary>
-   ///    Interaction logic for MainWindow.xaml
-   /// </summary>
-   public partial class MainWindow : Window
-   {
-      private HubConnection connection;
+    /// <summary>
+    ///    Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        private HubConnection connection;
 
         private string _connectionID;
 
@@ -49,50 +49,52 @@ namespace ThoughtSoup
 
          await connection.InvokeAsync("SendMessage", message);
 
-         MessageInputBox.Text = string.Empty;
-      }
+            MessageInputBox.Text = string.Empty;
+        }
 
-      private async void InitializeSignalR()
-      {
-         try
-         {
-            connection = new HubConnectionBuilder()
-                        .WithUrl("http://localhost:5000/ThoughtSoupChat")
-                        .WithAutomaticReconnect()
-                        .Build();
+        private async void InitializeSignalR()
+        {
+            username = "SomeUsername";
+            try
+            {
+                connection = new HubConnectionBuilder()
+                            .WithUrl("http://localhost:5000/ThoughtSoupChat")
+                            .WithAutomaticReconnect()
+                            .Build();
 
             
 
 
             #region snippet_ClosedRestart
 
-            connection.Closed += async (error) =>
-            {
-               await Task.Delay(new Random().Next(0, 5) * 1000);
-               await connection.StartAsync();
-            };
+                connection.Closed += async (error) =>
+                {
+                    await Task.Delay(new Random().Next(0, 5) * 1000);
+                    await connection.StartAsync();
+                };
 
-            #endregion
+                #endregion
 
-            connection.On(
-               "ReceiveMessage",
-               (ChatMessage message) => Dispatcher.Invoke(() => {
-                   ChatBubble bubble;
-
-                   if (message.ConnectionID == _connectionID)
+                connection.On(
+                   "ReceiveMessage",
+                   (ChatMessage message) => Dispatcher.Invoke(() =>
                    {
-                       bubble = new ChatBubble(new SentMessageOptions(), message);
-                   }
-                   else
-                   {
-                       bubble = new ChatBubble(new ReceivedMessageOptions(), message);
-                   }
+                       ChatBubble bubble;
 
-                   MessageBubble messageBubble = new MessageBubble(bubble);
-                   
-                   ChatWindow.Children.Add(messageBubble);
-               })
-            );
+                       if (message.ConnectionID == _connectionID)
+                       {
+                           bubble = new ChatBubble(new SentMessageOptions(), message);
+                       }
+                       else
+                       {
+                           bubble = new ChatBubble(new ReceivedMessageOptions(), message);
+                       }
+
+                       MessageBubble messageBubble = new MessageBubble(bubble);
+                       
+                       ChatWindow.Children.Add(messageBubble);
+                   })
+                );
 
 
             
@@ -130,27 +132,32 @@ namespace ThoughtSoup
             {
                     MessageBubble errorMessage = new MessageBubble(new ChatBubble(new SentMessageOptions(), new ChatMessage { Message = ex.Message }));
                     ChatWindow.Children.Add(errorMessage);
+                }
             }
-         }
-         catch (Exception ex)
-         {
-            throw ex;
-         }
-      }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
         private void MessageInputBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if(e.KeyboardDevice.Modifiers == ModifierKeys.Control && e.Key == Key.Enter)
+            if (e.KeyboardDevice.Modifiers == ModifierKeys.Control && e.Key == Key.Enter)
             {
                 int caret = MessageInputBox.CaretIndex;
                 MessageInputBox.Text = MessageInputBox.Text.Insert(caret, Environment.NewLine);
                 MessageInputBox.CaretIndex = caret + Environment.NewLine.Length;
                 return;
             }
-            if(e.Key == Key.Enter)
+            if (e.Key == Key.Enter)
             {
                 SendButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             }
         }
-	}
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+    }
 }

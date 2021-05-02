@@ -6,16 +6,17 @@
              xmlns:local="clr-namespace:ThoughtSoup"
              mc:Ignorable="d" 
              d:DesignHeight="102.188" d:DesignWidth="246.875">
-	<StackPanel Orientation="Horizontal" 
-                        HorizontalAlignment="Right" 
-                        >
+	
+    <StackPanel Orientation="Horizontal" 
+                HorizontalAlignment="Right">
 		<StackPanel>
-			<Label Content="SomeUsername" 
-                       FontFamily="/ThoughtSoup;component/Fonts/#NEON ABSOLUTE SANS 1" 
-                       FontSize="20" 
-                       HorizontalAlignment="Right" 
-                       Foreground="#9DF05D" 
-                       Margin="0,15,0,0" />
+			<Label Content="SomeUsername"
+                   x:Name="UserName"
+                   FontFamily="/ThoughtSoup;component/Fonts/#NEON ABSOLUTE SANS 1" 
+                   FontSize="20" 
+                   HorizontalAlignment="Right" 
+                   Foreground="#9DF05D" 
+                   Margin="0,15,0,0" />
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
 				<Border BorderThickness="2"
                             BorderBrush="Green"
@@ -27,9 +28,9 @@
 							<Setter Property="Effect">
 								<Setter.Value>
 									<DropShadowEffect ShadowDepth="0" 
-                                                                      Color="Lime" 
-                                                                      Opacity="50" 
-                                                                      BlurRadius="10"/>
+                                                      Color="Lime" 
+                                                      Opacity="50" 
+                                                      BlurRadius="10"/>
 								</Setter.Value>
 							</Setter>
 						</Style>
@@ -48,7 +49,7 @@
                          VerticalAlignment="Top" 
                          Margin="10">
 			<Ellipse.Fill>
-				<ImageBrush ImageSource="Resources/neonCool1.jpg"/>
+				<ImageBrush x:Name="ProfileImg" ImageSource="Resources/neonCool1.jpg"/>
 			</Ellipse.Fill>
 		</Ellipse>
 	</StackPanel>
