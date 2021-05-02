@@ -27,37 +27,40 @@ namespace ThoughtSoup
         private List<UserProfile> _userProfiles;
 
 
-        
 
-      public MainWindow()
-      {
-         InitializeComponent();
 
-         InitializeSignalR();
+        public MainWindow()
+        {
+            InitializeComponent();
 
-         GetUserName();
+            InitializeSignalR();
 
-		}
+            GetUserName();
 
-        private void GetUserName(){
+        }
+
+        private void GetUserName()
+        {
             Array usernames = Enum.GetValues(typeof(UserNames));
             Random random = new Random();
-            if(_userProfiles is null){
+            if (_userProfiles is null)
+            {
                 _username = usernames.GetValue(random.Next(usernames.Length)).ToString();
             }
-            else {
+            else
+            {
                 UserProfile user = _userProfiles.FirstOrDefault(u => u.Username != (string)usernames.GetValue(random.Next(usernames.Length)));
                 _username = user.Username;
 
-			}
+            }
 
         }
 
         private async void SendButton_Click(object sender, RoutedEventArgs e)
-      {
-         ChatMessage message = new ChatMessage {Message = MessageInputBox.Text, ConnectionID = _connectionID};
+        {
+            ChatMessage message = new ChatMessage { Message = MessageInputBox.Text, ConnectionID = _connectionID };
 
-         await connection.InvokeAsync("SendMessage", message);
+            await connection.InvokeAsync("SendMessage", message);
 
             MessageInputBox.Text = string.Empty;
         }
@@ -71,10 +74,10 @@ namespace ThoughtSoup
                             .WithAutomaticReconnect()
                             .Build();
 
-            
 
 
-            #region snippet_ClosedRestart
+
+                #region snippet_ClosedRestart
 
                 connection.Closed += async (error) =>
                 {
@@ -100,52 +103,54 @@ namespace ThoughtSoup
                        }
 
                        MessageBubble messageBubble = new MessageBubble(bubble);
-                       
+
                        ChatWindow.Children.Add(messageBubble);
                    })
                 );
 
 
-            
-            connection.On(
-                "ReceiveUsers",
-                (string profiles) => Dispatcher.Invoke(() => {
 
-                    var userProfiles = JsonConvert.DeserializeObject<UserProfile[]>(profiles);
+                connection.On(
+                    "ReceiveUsers",
+                    (string profiles) => Dispatcher.Invoke(() =>
+                    {
 
-                    _userProfiles = new List<UserProfile>(userProfiles);
-                    FriendsAndRoomTabs.FriendsList.Items.Clear();
+                        var userProfiles = JsonConvert.DeserializeObject<UserProfile[]>(profiles);
 
-                    _userProfiles.ForEach(profile => {
-                        ListItemContent listItem = new ListItemContent(profile.Username);
+                        _userProfiles = new List<UserProfile>(userProfiles);
+                        FriendsAndRoomTabs.FriendsList.Items.Clear();
 
-                        Binding binding = new Binding();
-                        binding.Mode = BindingMode.OneWay;
-                        binding.Source = listItem.Parent;
-                        listItem.SetBinding(FrameworkElement.WidthProperty, binding);
-                        listItem.ListItemTextbox.SetBinding(FrameworkElement.WidthProperty, binding);
+                        _userProfiles.ForEach(profile =>
+                        {
+                            ListItemContent listItem = new ListItemContent(profile.Username);
 
-                        FriendsAndRoomTabs.FriendsList.Items.Add(listItem);
-                    });
-                })
-            );
+                            Binding binding = new Binding();
+                            binding.Mode = BindingMode.OneWay;
+                            binding.Source = listItem.Parent;
+                            listItem.SetBinding(FrameworkElement.WidthProperty, binding);
+                            listItem.ListItemTextbox.SetBinding(FrameworkElement.WidthProperty, binding);
+
+                            FriendsAndRoomTabs.FriendsList.Items.Add(listItem);
+                        });
+                    })
+                );
 
 
 
-            try
-            {
-               await connection.StartAsync();
-               _connectionID = connection.ConnectionId;
-               await connection.InvokeAsync(
-                  "SendMessage",
-                  new ChatMessage {Message = $"{_username} has joined.", ConnectionID = _connectionID}
-               );
+                try
+                {
+                    await connection.StartAsync();
+                    _connectionID = connection.ConnectionId;
+                    await connection.InvokeAsync(
+                       "SendMessage",
+                       new ChatMessage { Message = $"{_username} has joined.", ConnectionID = _connectionID }
+                    );
                     UserProfile profile = new UserProfile(_username, _connectionID);
-               await connection.InvokeAsync("AddUserConnection", JsonConvert.SerializeObject(profile));
-               await connection.InvokeAsync("GetUsers");
-            }
-            catch (Exception ex)
-            {
+                    await connection.InvokeAsync("AddUserConnection", JsonConvert.SerializeObject(profile));
+                    await connection.InvokeAsync("GetUsers");
+                }
+                catch (Exception ex)
+                {
                     MessageBubble errorMessage = new MessageBubble(new ChatBubble(new SentMessageOptions(), new ChatMessage { Message = ex.Message }));
                     ChatWindow.Children.Add(errorMessage);
                 }
