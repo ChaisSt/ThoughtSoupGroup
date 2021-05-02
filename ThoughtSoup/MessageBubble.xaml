@@ -9,22 +9,25 @@
   <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
-        </Grid.RowDefinitions>
+			<RowDefinition Height="20"/>
+		</Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="70"/>
+			<ColumnDefinition Width="{Binding FirstColumnWidth, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+			<ColumnDefinition Width="{Binding SecondColumnWidth, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
         </Grid.ColumnDefinitions>
         <Ellipse Height="50" 
                  Width="50" 
                  HorizontalAlignment="Right" 
                  VerticalAlignment="Bottom" 
-                 Margin="10" Grid.Column="1">
+                 Margin="10" Grid.Column="{Binding ImageColumn, RelativeSource={RelativeSource AncestorType=UserControl}}">
             <Ellipse.Fill>
-                <ImageBrush ImageSource="{Binding Pic, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+				<ImageBrush ImageSource="{Binding PicturePath, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
             </Ellipse.Fill>
         </Ellipse>
         <Border BorderThickness="1"
-                Grid.Column="0"
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Grid.Column="{Binding MessageColumn, RelativeSource={RelativeSource AncestorType=UserControl}}"
                 MaxWidth="500" 
                 Height="Auto"
                 Margin="10, 10, 0, 10"
@@ -33,7 +36,7 @@
                 CornerRadius="{Binding Radius, RelativeSource={RelativeSource AncestorType=UserControl}}">
       <TextBlock x:Name="MsgBubble" 
                 Grid.Row="0" 
-                Grid.Column="0"
+                Grid.Column="{Binding MessageColumn, RelativeSource={RelativeSource AncestorType=UserControl}}"
                  Foreground="White" 
                  TextWrapping="Wrap" 
                  LineHeight="2" 
@@ -42,6 +45,6 @@
                 Background="Transparent"
                 FontFamily="serif"
                 Text="{Binding MessageText, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
-    </Border>
+		</Border>
   </Grid>
 </UserControl>

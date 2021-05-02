@@ -21,7 +21,13 @@ namespace ThoughtSoup
 
             Radius = message.Options.BorderRadius;
 
-            Pic = message.Message.ProfilePic;
+            ImageColumn = message.Options.ImageColumn;
+
+            MessageColumn = message.Options.MessageColumn;
+
+            PicturePath = message.Message.ProfilePic;
+            FirstColumnWidth = message.Options.FirstColumnWidth;
+            SecondColumnWidth = message.Options.SecondColumnWidth;
         }
 
         public MessageBubble(ReceivedMessageOptions receivedMessageOptions)
@@ -33,13 +39,21 @@ namespace ThoughtSoup
 
         public static readonly DependencyProperty ColorProperty = DependencyProperty.Register(nameof(BorderColor), typeof(string), typeof(MessageBubble));
 
-        public static readonly DependencyProperty ImageSource = DependencyProperty.Register(nameof(Pic), typeof(string), typeof(MessageBubble));
+        public static readonly DependencyProperty ImageSource = DependencyProperty.Register(nameof(PicturePath), typeof(string), typeof(MessageBubble));
 
         public static readonly DependencyProperty AlignmentProperty = DependencyProperty.Register(nameof(Position), typeof(string), typeof(MessageBubble));
 
         public static readonly DependencyProperty RadiusProperty = DependencyProperty.Register(nameof(Radius), typeof(string), typeof(MessageBubble));
 
-        public string Pic
+        public static readonly DependencyProperty ImageColumnProperty = DependencyProperty.Register(nameof(ImageColumn), typeof(string), typeof(MessageBubble));
+
+        public static readonly DependencyProperty MessageColumnProperty = DependencyProperty.Register(nameof(MessageColumn), typeof(string), typeof(MessageBubble));
+
+        public static readonly DependencyProperty FirstColumnWidthProperty = DependencyProperty.Register(nameof(FirstColumnWidth), typeof(string), typeof(MessageBubble));
+        public static readonly DependencyProperty SecondColumnWidthProperty = DependencyProperty.Register(nameof(SecondColumnWidth), typeof(string), typeof(MessageBubble));
+
+
+        public string PicturePath
         {
             get { return (string)GetValue(ImageSource); }
             set { SetValue(ImageSource, value); }
@@ -65,6 +79,27 @@ namespace ThoughtSoup
         {
             get { return (string)GetValue(RadiusProperty); }
             set { SetValue(RadiusProperty, value); }
+        }
+        public string MessageColumn
+        {
+            get { return (string)GetValue(MessageColumnProperty); }
+            set { SetValue(MessageColumnProperty, value); }
+        }
+        public string ImageColumn
+        {
+            get { return (string)GetValue(ImageColumnProperty); }
+            set { SetValue(ImageColumnProperty, value); }
+        }
+
+        public string FirstColumnWidth
+        {
+            get { return (string)GetValue(FirstColumnWidthProperty); }
+            set { SetValue(FirstColumnWidthProperty, value); }
+        }
+        public string SecondColumnWidth
+        {
+            get { return (string)GetValue(SecondColumnWidthProperty); }
+            set { SetValue(SecondColumnWidthProperty, value); }
         }
     }
 }
