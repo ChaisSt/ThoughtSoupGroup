@@ -12,7 +12,7 @@
                             Margin="0,0,-3,0">
 						<ContentPresenter x:Name="ContentSite"
                                               ContentSource="Header"
-                                              Margin="13.5,5"/>
+                                              Margin="13.5,5" Cursor="Hand"/>
 					</Border>
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsSelected" Value="True">
@@ -43,7 +43,7 @@
                             CornerRadius="8,8,0,0" >
 						<ContentPresenter x:Name="ContentSite"
 										  ContentSource="Header"
-										  Margin="12,5"/>
+										  Margin="12,5" Cursor="Hand"/>
 					</Border>
 
 					<ControlTemplate.Triggers>
@@ -78,7 +78,7 @@
                                 CornerRadius="8,8,0,0">
 						<ContentPresenter x:Name="ContentSite"
                                               ContentSource="Header"
-                                              Margin="20,5"/>
+                                              Margin="20,5" Cursor="Hand"/>
 					</Border>
 
 					<ControlTemplate.Triggers>
@@ -87,13 +87,13 @@
 							<Setter TargetName="Border" Property="Background" Value="#200457" />
 							<Setter Property="Margin" Value="-2,0,0,-2.5"/>
 						</Trigger>
-						<Trigger Property="IsSelected" Value="False">
-							<Setter TargetName="Border" Property="Background" Value="#19014A" />
-							<Setter TargetName="Border" Property="BorderThickness" Value="1"/>
-							<Setter Property="Foreground" Value="#43C1D1"/>
-							<Setter Property="Margin" Value="-2,0"/>
-						</Trigger>
-					</ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="False">
+                            <Setter TargetName="Border" Property="Background" Value="#19014A" />
+                            <Setter TargetName="Border" Property="BorderThickness" Value="1"/>
+                            <Setter Property="Foreground" Value="#43C1D1"/>
+                            <Setter Property="Margin" Value="-2,0"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
@@ -188,34 +188,81 @@
 						</Trigger>
 						<Trigger Property="IsEnabled" Value="false">
 							<Setter Property="TextElement.Foreground" TargetName="templateRoot" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
-						</Trigger>
-					</ControlTemplate.Triggers>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect ShadowDepth="0"
+                                                      Color="#FD5E49" 
+                                                      Opacity="50" 
+                                                      BlurRadius="30"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
 	</Style>
-
+    
+    <Style x:Key="ListBoxtemStyleNoHighlighting" TargetType="ListBoxItem">
+        <Setter Property="Padding" Value="3"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="VerticalContentAlignment" Value="Top"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Grid Background="{TemplateBinding Background}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="MouseOver"/>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="SelectionStates">
+                                <VisualState x:Name="Unselected"/>
+                                <VisualState x:Name="Selected"/>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused"/>
+                                <VisualState x:Name="Unfocused"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Rectangle x:Name="fillColor" Fill="#FFBADDE9" IsHitTestVisible="False"  
+                Opacity="0" RadiusY="1" RadiusX="1"/>
+                        <Rectangle x:Name="fillColor2" Fill="#FFBADDE9" IsHitTestVisible="False"  
+                Opacity="0" RadiusY="1" RadiusX="1"/>
+                        <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}"  
+            Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"  
+            Margin="{TemplateBinding Padding}"/>
+                        <Rectangle x:Name="FocusVisualElement" RadiusY="1" RadiusX="1" Stroke="#FF6DBDD1"  
+            StrokeThickness="1" Visibility="Collapsed"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
     <Style x:Key="ListboxStyles" TargetType="{x:Type ListBoxItem}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                    <TextBlock x:Name="TextBlock"
+                    <Viewbox x:Name="Viewbox">
+                        <TextBlock x:Name="TextBlock"
 							   Text="{Binding ListItemText, RelativeSource={RelativeSource AncestorType=UserControl}}"  
 							   Margin="0,0,10,0" 
 							   Padding="3" 
 							   Foreground="Aqua" 
-							   FontStretch="Expanded" 
+							   FontStretch="Expanded"
 							   FontSize="20" >
 
-                    </TextBlock>
+                        </TextBlock>
+                    </Viewbox>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Foreground" Value="#43C1D1"/>
-                            <Setter TargetName="TextBlock" Property="BitmapEffect">
-                                <Setter.Value>
-                                    <OuterGlowBitmapEffect GlowColor="Red" GlowSize="10" Opacity="0"/>
-                                </Setter.Value>
-                            </Setter>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                            <Setter Property="Background" Value="Transparent"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="False">
                             <Setter TargetName="TextBlock" Property="BitmapEffect">

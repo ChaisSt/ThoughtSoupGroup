@@ -7,16 +7,17 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     
-    <ListBoxItem x:Name="ListItemContainer" Height="40" Padding="0" Style="{StaticResource ListboxStyles}">
-		<Viewbox StretchDirection="Both" Stretch="Uniform" Margin="0" Width="{Binding ElementName=ListItemContainer, Path=Width}">
-			<TextBlock x:Name="ListItemTextbox" 
+    <ListBoxItem x:Name="ListItemContainer" Height="40" Padding="0" Style="{StaticResource ListBoxtemStyleNoHighlighting}">
+        <Viewbox StretchDirection="Both" Stretch="Uniform" Margin="0" Width="{Binding ElementName=ListItemContainer, Path=Width}">
+            <TextBlock x:Name="ListItemTextbox" 
                        Margin="0,0,10,0" 
                        Width="{Binding ElementName=ListItemContainer, Path=Width}"
                        Padding="3" 
                        Foreground="Aqua" 
                        Text="{Binding ListItemText, RelativeSource={RelativeSource AncestorType=UserControl}}" 
                        FontStretch="Expanded" 
-                       FontSize="20" />
-		</Viewbox>
-	</ListBoxItem>
+                       FontSize="20" 
+                       Cursor="Hand"/>
+        </Viewbox>
+    </ListBoxItem>
 </UserControl>

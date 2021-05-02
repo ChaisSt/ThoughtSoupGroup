@@ -25,7 +25,7 @@
                  VerticalAlignment="Top">
 			<Grid Name="FriendsGrid" Margin="5">
 				<ListBox x:Name="FriendsList" 
-                         Background="#290E61" 
+                         Background="Transparent" 
                          BorderBrush="Transparent"
                          HorizontalAlignment="Left" 
                          VerticalAlignment="Top" 

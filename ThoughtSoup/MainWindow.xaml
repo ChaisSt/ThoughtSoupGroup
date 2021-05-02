@@ -61,7 +61,7 @@
                         BorderBrush="#FD5E49"  
                         Grid.Column="1" Grid.ColumnSpan="4"
                         Grid.Row="2" Grid.RowSpan="3"  
-						Style="{StaticResource GeneralTabControlStyles}">
+						Style="{StaticResource GeneralTabControlStyles}" >
 				<!--Style="{DynamicResource TabControlStyle1}">-->
 				<TabItem Header="TheSoupChat" 
                          FontSize="30" 
@@ -184,16 +184,16 @@
 									</Setter>
 									<Style.Triggers>
 										<Trigger Property="IsMouseOver" Value="True">
-											<Setter Property="Effect">
-												<Setter.Value>
-													<DropShadowEffect ShadowDepth="0" 
-                                                                      Color="#9DF05D" 
-                                                                      Opacity="5" 
-                                                                      BlurRadius="15"/>
-												</Setter.Value>
-											</Setter>
-											<Setter Property="Foreground" Value="White"/>
-										</Trigger>
+                                            <Setter Property="Effect">
+                                                <Setter.Value>
+                                                    <DropShadowEffect ShadowDepth="0"
+                                                                      Color="Lime" 
+                                                                      Opacity="50" 
+                                                                      BlurRadius="30"/>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Setter Property="Cursor" Value="Hand"/>
+                                        </Trigger>
 									</Style.Triggers>
 								</Style>
 							</Button.Style>
