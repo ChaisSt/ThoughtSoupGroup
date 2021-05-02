@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using ThoughtSoup.Domain.Models;
 
@@ -28,6 +29,8 @@ namespace ThoughtSoup
             PicturePath = message.Message.ProfilePic;
             FirstColumnWidth = message.Options.FirstColumnWidth;
             SecondColumnWidth = message.Options.SecondColumnWidth;
+            TimeStamp = DateTime.Now.ToString();
+            
         }
 
         public MessageBubble(ReceivedMessageOptions receivedMessageOptions)
@@ -51,6 +54,8 @@ namespace ThoughtSoup
 
         public static readonly DependencyProperty FirstColumnWidthProperty = DependencyProperty.Register(nameof(FirstColumnWidth), typeof(string), typeof(MessageBubble));
         public static readonly DependencyProperty SecondColumnWidthProperty = DependencyProperty.Register(nameof(SecondColumnWidth), typeof(string), typeof(MessageBubble));
+
+        public static readonly DependencyProperty TimeStampProperty = DependencyProperty.Register(nameof(TimeStamp), typeof(string), typeof(MessageBubble));
 
 
         public string PicturePath
@@ -100,6 +105,11 @@ namespace ThoughtSoup
         {
             get { return (string)GetValue(SecondColumnWidthProperty); }
             set { SetValue(SecondColumnWidthProperty, value); }
+        }
+        public string TimeStamp
+        {
+            get { return (string)GetValue(TimeStampProperty); }
+            set { SetValue(TimeStampProperty, value); }
         }
     }
 }

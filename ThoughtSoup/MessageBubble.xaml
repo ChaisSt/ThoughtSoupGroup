@@ -34,17 +34,29 @@
                 BorderBrush="{Binding BorderColor, RelativeSource={RelativeSource AncestorType=UserControl}}"  
                 HorizontalAlignment="{Binding Position, RelativeSource={RelativeSource AncestorType=UserControl}}"
                 CornerRadius="{Binding Radius, RelativeSource={RelativeSource AncestorType=UserControl}}">
-      <TextBlock x:Name="MsgBubble" 
-                Grid.Row="0" 
-                Grid.Column="{Binding MessageColumn, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                 Foreground="White" 
-                 TextWrapping="Wrap" 
-                 LineHeight="2" 
-                FontSize="20"
-                Padding="10"
-                Background="Transparent"
-                FontFamily="serif"
-                Text="{Binding MessageText, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
-		</Border>
+			<Grid Grid.Row="0" Grid.Column="{Binding MessageColumn, RelativeSource={RelativeSource AncestorType=UserControl}}">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="20"/>
+				</Grid.RowDefinitions>
+                <TextBlock x:Name="MsgBubble" 
+                            Foreground="White" 
+                            TextWrapping="Wrap" 
+                            Grid.Row="0"
+                            LineHeight="2" 
+                        FontSize="20"
+                        Padding="10"
+                        Background="Transparent"
+                        FontFamily="serif"
+                        Text="{Binding MessageText, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+				<Label Grid.Row="1" Height="20" 
+                    Foreground="White" Margin="0" 
+                    FontFamily="serif"
+                    FontSize="11" Padding="10, 0" 
+                    HorizontalAlignment="{Binding Position, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                    Content="{Binding TimeStamp, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+
+			</Grid>
+		    </Border>
   </Grid>
 </UserControl>
