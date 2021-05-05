@@ -2,174 +2,159 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
 using Microsoft.AspNetCore.SignalR.Client;
 using Newtonsoft.Json;
 using ThoughtSoup.Domain.Models;
-using System.Linq;
-using System.Windows.Data;
+
 
 namespace ThoughtSoup
 {
-    /// <summary>
-    ///    Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
-    {
-        private HubConnection connection;
+   /// <summary>
+   ///    Interaction logic for MainWindow.xaml
+   /// </summary>
+   public partial class MainWindow : Window
+   {
+      private HubConnection _connection;
+      private string        _connectionId;
 
-        private string _connectionID;
+      private readonly string _profilePicturePath;
 
-        private string _username;
+      private readonly string _username;
 
-        private string _profilePicturePath;
+      private List<UserProfile> _userProfiles;
 
-        private List<UserProfile> _userProfiles;
+      public MainWindow()
+      {
+         InitializeComponent();
 
+         InitializeSignalR();
 
+         _username = Users.GetUserName(_userProfiles);
 
+         _profilePicturePath = ProfilePictures.GetPicturePath();
 
-        public MainWindow()
-        {
-            InitializeComponent();
+         ProfileInformationHeader.Children.Add(new ProfileHeader(_username, _profilePicturePath));
+      }
 
-            InitializeSignalR();
+      private async void SendButton_Click(object sender, RoutedEventArgs e)
+      {
+         ChatMessage message =
+            new ChatMessage {Message = MessageInputBox.Text, ConnectionID = _connectionId, ProfilePic = _profilePicturePath};
 
-            _username = Users.GetUserName(_userProfiles);
+         await _connection.InvokeAsync("SendMessage", message);
 
-            _profilePicturePath = ProfilePictures.GetPicturePath();
+         MessageInputBox.Text = string.Empty;
+      }
 
-            ProfileInformationHeader.Children.Add(new ProfileHeader(_username, _profilePicturePath));
+      private async void InitializeSignalR()
+      {
+         try
+         {
+            _connection = new HubConnectionBuilder()
+                         .WithUrl("http://localhost:5000/ThoughtSoupChat")
+                         .WithAutomaticReconnect()
+                         .Build();
 
-        }
+            _connection.Closed += async (error) =>
+            {
+               await Task.Delay(new Random().Next(0, 5) * 1000);
+               await _connection.StartAsync();
+            };
 
-        private async void SendButton_Click(object sender, RoutedEventArgs e)
-        {
-            ChatMessage message = new ChatMessage { Message = MessageInputBox.Text, ConnectionID = _connectionID, ProfilePic = _profilePicturePath };
+            _connection.On(
+               "ReceiveMessage",
+               (ChatMessage message) => Dispatcher.Invoke(
+                  () =>
+                  {
+                     ChatBubble bubble = message.ConnectionID == _connectionId
+                        ? new ChatBubble(new SentMessageOptions(), message)
+                        : new ChatBubble(new ReceivedMessageOptions(), message);
 
-            await connection.InvokeAsync("SendMessage", message);
+                     MessageBubble messageBubble = new MessageBubble(bubble);
 
-            MessageInputBox.Text = string.Empty;
-        }
+                     ChatWindow.Children.Add(messageBubble);
+                  }
+               )
+            );
 
-        private async void InitializeSignalR()
-        {
+            _connection.On(
+               "ReceiveUsers",
+               (string profiles) => Dispatcher.Invoke(
+                  () =>
+                  {
+                     UserProfile[] userProfiles = JsonConvert.DeserializeObject<UserProfile[]>(profiles);
+
+                     _userProfiles = new List<UserProfile>(userProfiles ?? Array.Empty<UserProfile>());
+                     FriendsAndRoomTabs.FriendsList.Items.Clear();
+
+                     if (_userProfiles?.Count != 0)
+                     {
+                        _userProfiles.ForEach(
+                           profile =>
+                           {
+                              ListItemContent listItem = new ListItemContent(profile.Username);
+
+                              Binding binding = new Binding {Mode = BindingMode.OneWay, Source = listItem.Parent};
+                              listItem.SetBinding(WidthProperty, binding);
+                              listItem.ListItemTextbox.SetBinding(WidthProperty, binding);
+
+                              if (profile.UserConnectionID != _connectionId)
+                              {
+                                 FriendsAndRoomTabs.FriendsList.Items.Add(listItem);
+                              }
+                           }
+                        );
+                     }
+                  }
+               )
+            );
+
             try
             {
-                connection = new HubConnectionBuilder()
-                            .WithUrl("http://localhost:5000/ThoughtSoupChat")
-                            .WithAutomaticReconnect()
-                            .Build();
-
-
-
-
-                #region snippet_ClosedRestart
-
-                connection.Closed += async (error) =>
-                {
-                    await Task.Delay(new Random().Next(0, 5) * 1000);
-                    await connection.StartAsync();
-                };
-
-                #endregion
-
-                connection.On(
-                   "ReceiveMessage",
-                   (ChatMessage message) => Dispatcher.Invoke(() =>
-                   {
-                       ChatBubble bubble;
-
-                       if (message.ConnectionID == _connectionID)
-                       {
-                           bubble = new ChatBubble(new SentMessageOptions(), message);
-                       }
-                       else
-                       {
-                           bubble = new ChatBubble(new ReceivedMessageOptions(), message);
-                       }
-
-                       MessageBubble messageBubble = new MessageBubble(bubble);
-
-                       ChatWindow.Children.Add(messageBubble);
-                   })
-                );
-
-
-
-                connection.On(
-                    "ReceiveUsers",
-                    (string profiles) => Dispatcher.Invoke(() =>
-                    {
-
-                        var userProfiles = JsonConvert.DeserializeObject<UserProfile[]>(profiles);
-
-                        _userProfiles = new List<UserProfile>(userProfiles);
-                        FriendsAndRoomTabs.FriendsList.Items.Clear();
-
-                        _userProfiles.ForEach(profile =>
-                        {
-                            ListItemContent listItem = new ListItemContent(profile.Username);
-
-                            Binding binding = new Binding();
-                            binding.Mode = BindingMode.OneWay;
-                            binding.Source = listItem.Parent;
-                            listItem.SetBinding(FrameworkElement.WidthProperty, binding);
-                            listItem.ListItemTextbox.SetBinding(FrameworkElement.WidthProperty, binding);
-
-                            if(profile.UserConnectionID != _connectionID){
-                                FriendsAndRoomTabs.FriendsList.Items.Add(listItem);
-							}
-                        });
-                    })
-                );
-
-
-
-                try
-                {
-                    await connection.StartAsync();
-                    _connectionID = connection.ConnectionId;
-                    await connection.InvokeAsync(
-                       "SendConnectionMessage",
-                       new ChatMessage { Message = $"{_username} has joined.", ConnectionID = _connectionID, ProfilePic = _profilePicturePath }
-                    );
-                    UserProfile profile = new UserProfile(_username, _connectionID);
-                    await connection.InvokeAsync("AddUserConnection", JsonConvert.SerializeObject(profile));
-                    await connection.InvokeAsync("GetUsers");
-                }
-                catch (Exception ex)
-                {
-                    MessageBubble errorMessage = new MessageBubble(new ChatBubble(new SentMessageOptions(), new ChatMessage { Message = ex.Message }));
-                    ChatWindow.Children.Add(errorMessage);
-                }
+               await _connection.StartAsync();
+               _connectionId = _connection.ConnectionId;
+               await _connection.InvokeAsync(
+                  "SendConnectionMessage",
+                  new ChatMessage {Message = $"{_username} has joined.", ConnectionID = _connectionId, ProfilePic = _profilePicturePath}
+               );
+               UserProfile profile = new UserProfile(_username, _connectionId);
+               await _connection.InvokeAsync("AddUserConnection", JsonConvert.SerializeObject(profile));
+               await _connection.InvokeAsync("GetUsers");
             }
             catch (Exception ex)
             {
-                throw ex;
+               MessageBubble errorMessage =
+                  new MessageBubble(new ChatBubble(new SentMessageOptions(), new ChatMessage {Message = ex.Message}));
+               ChatWindow.Children.Add(errorMessage);
             }
-        }
+         }
+         catch (Exception ex)
+         {
+            throw ex;
+         }
+      }
 
-        private void MessageInputBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.KeyboardDevice.Modifiers == ModifierKeys.Control && e.Key == Key.Enter)
-            {
-                int caret = MessageInputBox.CaretIndex;
-                MessageInputBox.Text = MessageInputBox.Text.Insert(caret, Environment.NewLine);
-                MessageInputBox.CaretIndex = caret + Environment.NewLine.Length;
-                return;
-            }
-            if (e.Key == Key.Enter)
-            {
-                SendButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-            }
-        }
+      private void MessageInputBox_KeyDown(object sender, KeyEventArgs e)
+      {
+         if (e.KeyboardDevice.Modifiers == ModifierKeys.Control && e.Key == Key.Enter)
+         {
+            int caret = MessageInputBox.CaretIndex;
+            MessageInputBox.Text = MessageInputBox.Text.Insert(caret, Environment.NewLine);
+            MessageInputBox.CaretIndex = caret + Environment.NewLine.Length;
+            return;
+         }
+         if (e.Key == Key.Enter)
+         {
+            SendButton.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
+         }
+      }
 
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            DragMove();
-        }
-    }
+      private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+      {
+         DragMove();
+      }
+   }
 }
