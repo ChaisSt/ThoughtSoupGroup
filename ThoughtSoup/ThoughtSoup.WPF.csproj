@@ -325,6 +325,20 @@
       <Name>ThoughtSoup.Domain</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\TsLogo2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Soup0.png" />
+    <Resource Include="Resources\Thought.png" />
+    <Resource Include="Resources\TsWords.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\drip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\drip1.png" />
+    <Resource Include="Resources\drip2.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -10,13 +10,26 @@
     <StackPanel Orientation="Horizontal" 
                 HorizontalAlignment="Right">
 		<StackPanel>
-			<Label Content="{Binding UserName, RelativeSource={RelativeSource AncestorType=UserControl}}"
+            <Label Content="{Binding UserName, RelativeSource={RelativeSource AncestorType=UserControl}}"
                    x:Name="UserNameLabel"
                    FontFamily="/ThoughtSoup;component/Fonts/#NEON ABSOLUTE SANS 1" 
                    FontSize="20" 
                    HorizontalAlignment="Right" 
                    Foreground="#9DF05D" 
-                   Margin="0,15,0,0" />
+                   Margin="0,15,0,0" >
+                <Label.Style>
+                    <Style TargetType="{x:Type Label}">
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect ShadowDepth="0"
+                                                  Color="Lime" 
+                                                  Opacity="1" 
+                                                  BlurRadius="0"/>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Label.Style>
+            </Label>
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
 				<Border BorderThickness="2"
                             BorderBrush="Green"
