@@ -38,14 +38,48 @@
 			
 
 			<!--Thought Soup title-->
-			<Image Source="Resources/ThoughtSoupWords.png" 
+            <Image Source="Resources/Thought.png" 
                    Margin="15" 
                    HorizontalAlignment="Left" 
                    VerticalAlignment="Top"
                    Grid.Column="0" 
                    Grid.ColumnSpan="3" 
                    Grid.Row="0" 
-                   Grid.RowSpan="2"/>
+                   Grid.RowSpan="2">
+                <Image.Style>
+                    <Style TargetType="{x:Type Image}">
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect ShadowDepth="0"
+                                                  Color="#00ff73" 
+                                                  Opacity="50" 
+                                                  BlurRadius="10"/>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Image.Style>
+            </Image>
+            <Image Source="Resources/Soup0.png" 
+                   Margin="15" 
+                   HorizontalAlignment="Left" 
+                   VerticalAlignment="Top"
+                   Grid.Column="0" 
+                   Grid.ColumnSpan="3" 
+                   Grid.Row="0" 
+                   Grid.RowSpan="2">
+                <Image.Style>
+                    <Style TargetType="{x:Type Image}">
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect ShadowDepth="0"
+                                                  Color="#dffa2f" 
+                                                  Opacity="100" 
+                                                  BlurRadius="10"/>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Image.Style>
+            </Image>
 
 			<!--Username and photo -->
 			<StackPanel Name="ProfileInformationHeader" Grid.Row="1" 
@@ -87,7 +121,7 @@
 							<!-- Auto height grows per the content until the height hits the maxheight-->
 						</Grid.RowDefinitions>
 						<!--Background Soup Logo-->
-						<Image Source="Resources/SoupLogo3.png" 
+						<Image Source="Resources/TsLogo2.png" 
                                Grid.Column="2" Grid.ColumnSpan="2"
                                Grid.Row="1" Grid.RowSpan="2" />
 						<!-- Window that holds the chat bubbles -->
@@ -110,6 +144,7 @@
                                  MaxHeight="150"
                                  VerticalScrollBarVisibility="Auto" 
                                  FontFamily="serif"
+                                 Background="#13023b"
                                  KeyDown="MessageInputBox_KeyDown">
 							<TextBox.Style>
 								<Style TargetType="TextBox">
@@ -118,8 +153,8 @@
 											<ControlTemplate TargetType="{x:Type TextBox}">
 												<Border x:Name="border" 
                                                     CornerRadius="10"  
-                                                    BorderBrush="{TemplateBinding BorderBrush}" 
-                                                    BorderThickness="{TemplateBinding BorderThickness}" 
+                                                    BorderBrush="#04D9FF" 
+                                                    BorderThickness="1" 
                                                     Background="{TemplateBinding Background}" 
                                                     SnapsToDevicePixels="True">
 													<ScrollViewer x:Name="PART_ContentHost" 
@@ -160,9 +195,9 @@
 							</TextBox.Style>
 						</TextBox>
 						<!--Send Message Button-->
-						<Button x:Name="SendButton" Background="#9DF05D" 
+						<Button x:Name="SendButton"
                                 BorderBrush="Transparent"
-                                Margin="10,4,12,8"
+                                Margin="0,0,9,5"
                                 Padding="2" 
                                 Grid.Row="4" 
                                 Click="SendButton_Click"
@@ -173,10 +208,10 @@
 										<Setter.Value>
 											<ControlTemplate TargetType="{x:Type Button}">
 												<Border x:Name="ButtonBorder" 
-                                                Background="{TemplateBinding Background}" 
-                                                BorderBrush="#9DF05D" 
-                                                BorderThickness="1" Padding="2" 
-                                                CornerRadius="8">
+                                                        Background="#13023b" 
+                                                        BorderBrush="#04D9FF"
+                                                        BorderThickness="1" Padding="2" 
+                                                        CornerRadius="8">
 													<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
 												</Border>
 											</ControlTemplate>
@@ -187,9 +222,9 @@
                                             <Setter Property="Effect">
                                                 <Setter.Value>
                                                     <DropShadowEffect ShadowDepth="0"
-                                                                      Color="Lime" 
+                                                                      Color="#04D9FF" 
                                                                       Opacity="50" 
-                                                                      BlurRadius="30"/>
+                                                                      BlurRadius="20"/>
                                                 </Setter.Value>
                                             </Setter>
                                             <Setter Property="Cursor" Value="Hand"/>
@@ -197,7 +232,7 @@
 									</Style.Triggers>
 								</Style>
 							</Button.Style>
-							<Image Source="/Resources/airplane.png"/>
+							<Image Source="/Resources/drip2.png" Margin="5"/>
 						</Button>
 					</Grid>
 				</TabItem>
